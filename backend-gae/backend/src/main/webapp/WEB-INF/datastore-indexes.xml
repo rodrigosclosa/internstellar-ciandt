@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+
+    <datastore-index kind="Equipe" ancestor="false" source="manual">
+        <property name="nome" direction="asc"/>
+        <property name="cor" direction="asc"/>
+        <property name="base" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
