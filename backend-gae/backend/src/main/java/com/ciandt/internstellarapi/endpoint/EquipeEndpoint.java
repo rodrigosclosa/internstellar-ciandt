@@ -63,11 +63,12 @@ public class EquipeEndpoint {
     }
 
     //TODO: Remover antes do evento
-    @ApiMethod(name = "removePalavra", path = "delete/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void removePalavra(@Named("id") Long id) throws NotFoundException, ConflictException {
+    @ApiMethod(name = "removeEquipe", path = "delete/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
+    public void removeEquipe(@Named("id") Long id) throws NotFoundException, ConflictException {
         equipeService.remove(id);
     }
 
+    //TODO: Remover antes do evento
     @ApiMethod(name = "seedData", path = "seed", httpMethod = ApiMethod.HttpMethod.POST)
     public void seedData() throws NotFoundException, ConflictException {
         equipeService.seedData();
