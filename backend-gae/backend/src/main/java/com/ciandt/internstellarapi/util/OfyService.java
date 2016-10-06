@@ -2,6 +2,7 @@ package com.ciandt.internstellarapi.util;
 
 import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.Integrante;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -14,6 +15,7 @@ public class OfyService {
     static {
         ObjectifyService.register(Equipe.class);
         ObjectifyService.register(Grupo.class);
+        ObjectifyService.register(Integrante.class);
     }
 
     public static Objectify ofy() {

@@ -22,9 +22,12 @@ public class GrupoService {
 
     private GrupoValidator grupoValidator;
 
+    private IntegranteService integranteService;
+
     public GrupoService() {
         grupoDao = new GrupoDao();
         grupoValidator = new GrupoValidator();
+        integranteService = new IntegranteService();
     }
 
     public List<Grupo> list() {
@@ -53,6 +56,7 @@ public class GrupoService {
         if (grupoValidator.validarGrupo(item)) {
             try {
                 configGrupoValido(item);
+                item.setIdIntegrantes(integranteService.salvarGrupoIntegrantes(item.getIntegrantes()));
                 grupoDao.insert(item);
             } catch (NoSuchAlgorithmException e) {
                 throw new BadRequestException(e.getMessage());
