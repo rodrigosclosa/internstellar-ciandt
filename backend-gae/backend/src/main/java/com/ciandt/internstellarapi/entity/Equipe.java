@@ -1,6 +1,5 @@
 package com.ciandt.internstellarapi.entity;
 
-import com.google.appengine.api.datastore.Text;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -18,6 +17,7 @@ public class Equipe {
     private String cor;
     @Index
     private String base;
+
     private String imagem;
 
     public Equipe() {

@@ -1,6 +1,5 @@
 package com.ciandt.internstellarapi.entity;
 
-import com.ciandt.internstellarapi.endpoint.EquipeEndpoint;
 import com.google.appengine.api.datastore.Text;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -16,12 +15,23 @@ import java.util.List;
 public class Grupo {
     @Id
     private Long id;
+
     @Index
     private Long idEquipe;
+
     @Ignore
     private Equipe equipe;
 
+    private String senha;
+
+    @Ignore
+    private String senhaVerificadora;
+
+    @Ignore
     private List<GrupoIntegrante> integrantes;
+
+    private List<Long> idIntegrantes;
+
     private Text fotoEquipe;
 
     public Grupo() {
@@ -65,5 +75,29 @@ public class Grupo {
 
     public void setFotoEquipe(Text fotoEquipe) {
         this.fotoEquipe = fotoEquipe;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getSenhaVerificadora() {
+        return senhaVerificadora;
+    }
+
+    public void setSenhaVerificadora(String senhaVerificadora) {
+        this.senhaVerificadora = senhaVerificadora;
+    }
+
+    public List<Long> getIdIntegrantes() {
+        return idIntegrantes;
+    }
+
+    public void setIdIntegrantes(List<Long> idIntegrantes) {
+        this.idIntegrantes = idIntegrantes;
     }
 }

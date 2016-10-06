@@ -1,5 +1,7 @@
 package com.ciandt.internstellarapi.entity;
 
+import com.google.appengine.api.datastore.Text;
+
 /**
  * Created by rodrigosclosa on 05/10/16.
  */
@@ -7,6 +9,7 @@ package com.ciandt.internstellarapi.entity;
 public class GrupoIntegrante {
     private Integer numero;
     private String nome;
+    private Text foto;
 
     public GrupoIntegrante() {
     }
@@ -25,5 +28,13 @@ public class GrupoIntegrante {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Text getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Text foto) {
+        this.foto = foto;
     }
 }

@@ -5,7 +5,9 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.ciandt.internstellarapi.endpoint.EquipeEndpoint</param-value>
+            <param-value>com.ciandt.internstellarapi.endpoint.EquipeEndpoint,
+                com.ciandt.internstellarapi.endpoint.GrupoEndpoint
+            </param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
