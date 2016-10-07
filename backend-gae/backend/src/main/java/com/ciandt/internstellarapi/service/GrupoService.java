@@ -2,8 +2,9 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.GrupoDao;
 import com.ciandt.internstellarapi.entity.Grupo;
-import com.ciandt.internstellarapi.entity.GrupoValidator;
 import com.ciandt.internstellarapi.helper.AuthHelper;
+import com.ciandt.internstellarapi.helper.Messages;
+import com.ciandt.internstellarapi.service.validator.GrupoValidator;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -15,8 +16,6 @@ import java.util.List;
  * Created by rodrigosclosa on 29/08/16.
  */
 public class GrupoService {
-
-    private static final String ALGORITIMO_HASH_SENHA = "MD5";
 
     private GrupoDao grupoDao;
 
@@ -44,7 +43,7 @@ public class GrupoService {
         item = grupoDao.getByKey(id);
 
         if (item == null) {
-            throw new NotFoundException("Equipe não encontrada.");
+            throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
         }
 
         return item;
@@ -62,7 +61,7 @@ public class GrupoService {
                 throw new BadRequestException(e.getMessage());
             }
         } else {
-            throw new BadRequestException("Erro ao registrar grupo");
+            throw new BadRequestException(Messages.GrupoMessages.ERRO_REGISTRAR_GRUPO);
         }
 
         return item;
@@ -72,7 +71,7 @@ public class GrupoService {
         //Validação atualização
         Grupo grupo = grupoDao.getById(item.getId());
         if (grupo == null) {
-            throw new NotFoundException("Equipe não encontrada");
+            throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
         }
         grupoDao.update(item);
 
@@ -82,7 +81,7 @@ public class GrupoService {
     public void remove(Long id) throws ConflictException, NotFoundException {
         Grupo item = grupoDao.getByKey(id);
         if (item == null) {
-            throw new NotFoundException("Equipe não encontrada.");
+            throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
         }
         grupoDao.delete(item);
     }

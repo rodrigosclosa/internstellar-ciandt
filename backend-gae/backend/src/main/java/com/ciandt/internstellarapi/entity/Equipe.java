@@ -8,9 +8,8 @@ import com.googlecode.objectify.annotation.Index;
  * Created by rodrigosclosa on 05/10/16.
  */
 @Entity
-public class Equipe {
-    @Id
-    private Long id;
+public class Equipe extends BaseEntity {
+
     @Index
     private String nome;
     @Index
@@ -24,26 +23,16 @@ public class Equipe {
     }
 
     public Equipe(String nome, String cor, String base) {
-        this.id = id;
         this.nome = nome;
         this.cor = cor;
         this.base = base;
     }
 
     public Equipe(String nome, String cor, String base, String imagem) {
-        this.id = id;
         this.nome = nome;
         this.cor = cor;
         this.base = base;
         this.imagem = imagem;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {

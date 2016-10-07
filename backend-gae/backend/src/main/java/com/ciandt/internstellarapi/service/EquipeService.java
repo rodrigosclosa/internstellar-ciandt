@@ -2,6 +2,7 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.EquipeDao;
 import com.ciandt.internstellarapi.entity.Equipe;
+import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.util.Constants;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -36,7 +37,9 @@ public class EquipeService {
         list = equipeDao.listByProperty("nome", nome);
 
         if (list == null || list.size() == 0) {
-            throw new NotFoundException(String.format("Não foram encontradas equipes com o nome: %s", nome));
+            throw new NotFoundException(String.format(
+                    Messages.EquipeMessages.
+                            NAO_FORAM_ENCONTRADAS_EQUIPES_COM_NOME, nome));
         }
 
         return list;
@@ -48,7 +51,7 @@ public class EquipeService {
         item = equipeDao.getByKey(id);
 
         if (item == null) {
-            throw new NotFoundException("Equipe não encontrada.");
+            throw new NotFoundException(Messages.EquipeMessages.EQUIPE_NAO_ENCONTRADA);
         }
 
         return item;
@@ -56,17 +59,7 @@ public class EquipeService {
 
     public Equipe insert(Equipe item) throws ConflictException, NotFoundException {
 
-        if (item == null) {
-            throw new ConflictException("Equipe não informada.");
-        } else if (item.getNome() == null) {
-            throw new ConflictException("Palavra não informada.");
-        } else if (item.getCor() == null) {
-            throw new ConflictException("Cor da equipe não informada.");
-        } else if (item.getBase() == null) {
-            throw new ConflictException("Base da equipe não informada.");
-        } else if (item.getImagem() == null) {
-            throw new ConflictException("Imagem da equipe não informada.");
-        }
+        validarEquipe(item);
 
         equipeDao.insert(item);
 
@@ -75,22 +68,11 @@ public class EquipeService {
 
     public Equipe update(Equipe item) throws ConflictException, NotFoundException {
 
-        if (item == null) {
-            throw new ConflictException("Equipe não informada.");
-        } else if (item.getNome() == null) {
-            throw new ConflictException("Palavra não informada.");
-        } else if (item.getCor() == null) {
-            throw new ConflictException("Cor da equipe não informada.");
-        } else if (item.getBase() == null) {
-            throw new ConflictException("Base da equipe não informada.");
-        } else if (item.getImagem() == null) {
-            throw new ConflictException("Imagem da equipe não informada.");
-        }
-
+        validarEquipe(item);
         Equipe u = equipeDao.getById(item.getId());
 
         if (u == null) {
-            throw new NotFoundException("Equipe não encontrada");
+            throw new NotFoundException(Messages.EquipeMessages.EQUIPE_NAO_ENCONTRADA);
         }
 
         equipeDao.update(item);
@@ -98,12 +80,26 @@ public class EquipeService {
         return item;
     }
 
+    private void validarEquipe(Equipe item) throws ConflictException {
+        if (item == null) {
+            throw new ConflictException(Messages.EquipeMessages.EQUIPE_NAO_INFORMADA);
+        } else if (item.getNome() == null) {
+            throw new ConflictException(Messages.EquipeMessages.NOME_NAO_INFORMADO);
+        } else if (item.getCor() == null) {
+            throw new ConflictException(Messages.EquipeMessages.COR_NAO_INFORMADA);
+        } else if (item.getBase() == null) {
+            throw new ConflictException(Messages.EquipeMessages.BASE_NAO_INFORMADA);
+        } else if (item.getImagem() == null) {
+            throw new ConflictException(Messages.EquipeMessages.IMAGEM_NAO_INFORMADA);
+        }
+    }
+
     public void remove(Long id) throws ConflictException, NotFoundException {
 
         Equipe item = equipeDao.getByKey(id);
 
-        if(item == null) {
-            throw new NotFoundException("Equipe não encontrada.");
+        if (item == null) {
+            throw new NotFoundException(Messages.EquipeMessages.EQUIPE_NAO_ENCONTRADA);
         }
 
         equipeDao.delete(item);

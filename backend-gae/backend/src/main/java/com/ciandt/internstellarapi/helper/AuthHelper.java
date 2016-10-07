@@ -9,9 +9,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class AuthHelper {
 
+    private static final String ALGORITIMO_HASH_SENHA = "MD5";
+
     public static String generateHashFromText(String text) throws NoSuchAlgorithmException {
         // Create MessageDigest instance for MD5
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance(ALGORITIMO_HASH_SENHA);
         //Add password bytes to digest
         md.update(text.getBytes());
         //Get the hash's bytes

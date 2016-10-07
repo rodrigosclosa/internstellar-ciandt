@@ -12,9 +12,7 @@ import java.util.List;
  * Created by rodrigosclosa on 05/10/16.
  */
 @Entity
-public class Grupo {
-    @Id
-    private Long id;
+public class Grupo extends BaseEntity {
 
     @Index
     private Long idEquipe;
@@ -35,14 +33,6 @@ public class Grupo {
     private Text fotoEquipe;
 
     public Grupo() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getIdEquipe() {

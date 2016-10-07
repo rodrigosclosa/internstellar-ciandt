@@ -1,5 +1,7 @@
-package com.ciandt.internstellarapi.entity;
+package com.ciandt.internstellarapi.service.validator;
 
+import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.GrupoIntegrante;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.EquipeService;
 import com.google.api.server.spi.response.BadRequestException;
