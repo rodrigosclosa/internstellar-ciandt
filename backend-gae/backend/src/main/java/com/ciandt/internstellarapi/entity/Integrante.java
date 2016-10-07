@@ -16,6 +16,9 @@ public class Integrante extends BaseEntity {
 
     private Integer numero;
 
+    public Integrante(){
+    }
+
     public String getNome() {
         return nome;
     }

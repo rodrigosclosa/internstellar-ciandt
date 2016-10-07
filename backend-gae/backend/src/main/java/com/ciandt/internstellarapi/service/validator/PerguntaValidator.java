@@ -80,6 +80,26 @@ public class PerguntaValidator {
         return true;
     }
 
+    private Boolean validarOpcaoCorretaInformada(String opcaoCorreta) throws BadRequestException {
+        if (StringUtil.isEmptyOrWhitespace(opcaoCorreta)) {
+            throw new BadRequestException(Messages.PerguntaMessages.OPCAO_CORRETA_NAO_INFORMADA);
+        }
+        return Boolean.TRUE;
+    }
+
+    private Boolean validarOpcaoCorreta(List<PerguntaOpcao> opcoes, String opcaoCorreta) throws BadRequestException {
+        Boolean opcaoCorretaValida = Boolean.FALSE;
+        for (PerguntaOpcao opcao : opcoes) {
+            if (opcao.getOpcao().equals(opcaoCorreta)) {
+                opcaoCorretaValida = Boolean.TRUE;
+            }
+        }
+        if (Boolean.FALSE.equals(opcaoCorretaValida)) {
+            throw new BadRequestException(Messages.PerguntaMessages.OPCAO_CORRETA_INVALIDA);
+        }
+        return Boolean.TRUE;
+    }
+
     public Boolean validar(Pergunta pergunta) throws BadRequestException {
         return validarPerguntaInformada(pergunta)
                 && validarTituloInformado(pergunta.getTitulo())
@@ -87,6 +107,8 @@ public class PerguntaValidator {
                 && validarOpcoesInformadas(pergunta.getOpcoes())
                 && validarOpcoes(pergunta.getOpcoes())
                 && validarPlanetaInformado(pergunta.getPlanetaId())
-                && validarPlaneta(pergunta.getPlanetaId());
+                && validarPlaneta(pergunta.getPlanetaId())
+                && validarOpcaoCorretaInformada(pergunta.getOpcaoCorreta())
+                && validarOpcaoCorreta(pergunta.getOpcoes(), pergunta.getOpcaoCorreta());
     }
 }
