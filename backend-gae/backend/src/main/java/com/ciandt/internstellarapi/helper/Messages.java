@@ -48,6 +48,10 @@ public class Messages {
         public static String DESCRICAO_OPCAO_DEVE_SER_INFORMADA = "A descrição da opção deve ser informada";
         public static String PLANETA_DEVE_SER_INFORMADO = "Um planeta deve ser informado para a pergunta";
         public static String PLANETA_INFORMADO_INVALIDO = "O planeta informado é inválido";
+        public static String OPCAO_CORRETA_NAO_INFORMADA = "A opção correta não foi informada";
+        public static String OPCAO_CORRETA_INVALIDA = "A opção correta informada não é válida";
+
+
     }
 
 
