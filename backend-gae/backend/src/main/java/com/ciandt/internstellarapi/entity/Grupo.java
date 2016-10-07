@@ -32,6 +32,9 @@ public class Grupo extends BaseEntity {
 
     private Text fotoEquipe;
 
+    @Index
+    private String token;
+
     public Grupo() {
     }
 
@@ -89,5 +92,13 @@ public class Grupo extends BaseEntity {
 
     public void setIdIntegrantes(List<Long> idIntegrantes) {
         this.idIntegrantes = idIntegrantes;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

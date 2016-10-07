@@ -5,6 +5,7 @@ import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Integrante;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.Planeta;
+import com.ciandt.internstellarapi.entity.Tokens;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -20,6 +21,7 @@ public class OfyService {
         ObjectifyService.register(Integrante.class);
         ObjectifyService.register(Planeta.class);
         ObjectifyService.register(Pergunta.class);
+        ObjectifyService.register(Tokens.class);
     }
 
     public static Objectify ofy() {

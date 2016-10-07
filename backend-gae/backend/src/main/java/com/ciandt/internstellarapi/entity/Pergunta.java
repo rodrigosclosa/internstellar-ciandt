@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.entity;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.List;
 
@@ -16,8 +17,11 @@ public class Pergunta extends BaseEntity {
 
     private List<PerguntaOpcao> opcoes;
 
+    @Index
     private Long planetaId;
 
+    public Pergunta() {
+    }
 
     public String getTitulo() {
         return titulo;

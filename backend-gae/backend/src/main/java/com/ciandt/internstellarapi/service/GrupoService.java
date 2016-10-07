@@ -97,5 +97,4 @@ public class GrupoService {
         grupo.setSenha(AuthHelper.generateHashFromText(grupo.getSenha()));
     }
 
-
 }
