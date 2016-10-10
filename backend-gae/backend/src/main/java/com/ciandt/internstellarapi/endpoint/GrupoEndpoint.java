@@ -34,7 +34,7 @@ public class GrupoEndpoint {
         grupoService = new GrupoService();
     }
 
-    @ApiMethod(name = "getGrupos", path = "get", httpMethod = "GET")
+    @ApiMethod(name = "getGrupos", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Grupo> getGrupos(@Nullable @Named("nome") String nome) throws NotFoundException {
         if (nome == null) {
             return grupoService.list();

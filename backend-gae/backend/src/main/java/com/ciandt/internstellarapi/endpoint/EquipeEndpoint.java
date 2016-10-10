@@ -37,7 +37,7 @@ public class EquipeEndpoint {
         equipeService = new EquipeService();
     }
 
-    @ApiMethod(name = "getEquipes", path = "get", httpMethod = "GET")
+    @ApiMethod(name = "getEquipes", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Equipe> getEquipes(@Nullable @Named("nome") String nome) throws NotFoundException {
         if(nome == null)
             return equipeService.list();

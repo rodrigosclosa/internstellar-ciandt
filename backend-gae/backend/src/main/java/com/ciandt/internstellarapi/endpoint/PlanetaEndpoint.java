@@ -35,7 +35,7 @@ public class PlanetaEndpoint {
         planetaService = new PlanetaService();
     }
 
-    @ApiMethod(name = "getPlanetas", path = "get", httpMethod = "GET")
+    @ApiMethod(name = "getPlanetas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Planeta> getPlanetas(@Nullable @Named("nome") String nome) throws NotFoundException {
         if (nome == null) {
             return planetaService.list();

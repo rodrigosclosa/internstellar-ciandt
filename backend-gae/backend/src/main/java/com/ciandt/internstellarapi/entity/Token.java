@@ -8,11 +8,14 @@ import com.googlecode.objectify.annotation.Index;
  * Created by rodrigosclosa on 23/08/16.
  */
 @Entity
-public class Tokens extends BaseEntity {
+public class Token extends BaseEntity {
     @Index
     private String token;
 
-    public Tokens() {
+    @Index
+    private Long idGrupo;
+
+    public Token() {
     }
 
     public String getToken() {
@@ -21,5 +24,13 @@ public class Tokens extends BaseEntity {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(Long idGrupo) {
+        this.idGrupo = idGrupo;
     }
 }

@@ -36,7 +36,7 @@ public class PerguntaEndpoint {
     }
 
 
-    @ApiMethod(name = "getPerguntas", path = "get", httpMethod = "GET")
+    @ApiMethod(name = "getPerguntas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Pergunta> getPerguntas(@Nullable @Named("idPLaneta") Long idPlaneta) throws NotFoundException {
         if (idPlaneta == null) {
             return perguntaService.list();

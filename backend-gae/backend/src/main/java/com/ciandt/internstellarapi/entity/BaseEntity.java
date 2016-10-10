@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.entity;
 
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * Created by helder on 07/10/16.

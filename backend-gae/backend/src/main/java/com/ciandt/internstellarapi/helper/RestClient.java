@@ -1,5 +1,7 @@
 package com.ciandt.internstellarapi.helper;
 
+import com.google.api.server.spi.config.ApiMethod;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -84,7 +86,7 @@ public class RestClient {
             URL url = new URL(URL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod(ApiMethod.HttpMethod.GET);
             conn.setRequestProperty("Accept", acceptType);
 
             if(headers != null) {

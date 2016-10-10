@@ -6,6 +6,10 @@ package com.ciandt.internstellarapi.helper;
 
 public class Messages {
 
+    public static class GenericMessages {
+        public static String ERRO_NAO_ESPERADO = "Erro não esperado, entrar em contato com a equipe responsável pela API: %s";
+    }
+
     public static class GrupoMessages {
         public static String GRUPO_NAO_INFORMADO = "Grupo não informado";
         public static String IDENTIFICADOR_EQUIPE_NAO_INFORMADO = "A equipe não foi informada";
@@ -49,6 +53,16 @@ public class Messages {
         public static String PLANETA_INFORMADO_INVALIDO = "O planeta informado é inválido";
         public static String OPCAO_CORRETA_NAO_INFORMADA = "A opção correta não foi informada";
 
+    }
+
+    public static class AutenticacaoMessages {
+        public static String AUTENTICACAO_INVALIDA = "Informações inválidas, tente novamente...";
+    }
+
+    public static class TokenMessages {
+        public static String ITEM_NAO_INFORMADO = "Item não informado";
+        public static String TOKEN_NAO_INFORMADO = "Token não informado";
+        public static String TOKEN_NAO_ENCONTRADO = "Token não encontrado";
     }
 
 
