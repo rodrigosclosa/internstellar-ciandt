@@ -10,8 +10,8 @@
                 com.ciandt.internstellarapi.endpoint.PlanetaEndpoint,
                 com.ciandt.internstellarapi.endpoint.PerguntaEndpoint,
                 com.ciandt.internstellarapi.endpoint.AutenticacaoEndpoint,
-                com.ciandt.internstellarapi.endpoint.TokenEndpoint
-
+                com.ciandt.internstellarapi.endpoint.TokenEndpoint,
+                com.ciandt.internstellarapi.endpoint.RespostaEndpoint
             </param-value>
         </init-param>
     </servlet>

@@ -65,5 +65,18 @@ public class Messages {
         public static String TOKEN_NAO_ENCONTRADO = "Token não encontrado";
     }
 
+    public static class RespostaMessages {
+        public static final String TOKEN_INVALIDO_PARA_GRUPO = "Token inválido para operações deste grupo.";
+        public static final String RESPOSTA_NAO_INFORMADA = "Resposta não informada.";
+        public static final String GRUPO_NAO_INFORMADO = "Grupo não informado.";
+        public static final String TOKEN_NAO_INFORMADO = "Token não informado.";
+        public static final String PERGUNTA_NAO_INFORMADA = "Pergunta não informada.";
+        public static final String PERGUNTA_INFORMADA_INVALIDA = "Pergunta informada inválida.";
+        public static final String RESPOSTA_CORRETA_NAO_INFORMADA = "Resposta não informada.";
+        public static final String RESPOSTA_INVALIDA_PARA_A_PERGUNTA = "Resposta informada não válida.";
+        public static final String RESPOSTA_JA_ENVIADA = "Resposta já enviada.";
+
+    }
+
 
 }
