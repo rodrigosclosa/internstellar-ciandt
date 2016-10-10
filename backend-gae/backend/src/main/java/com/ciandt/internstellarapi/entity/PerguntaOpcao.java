@@ -11,8 +11,6 @@ public class PerguntaOpcao {
 
     private String idOpcao;
     private Integer codigo;
-    @Ignore
-    private String opcao;
     private String descricao;
     @Nullable
     private Boolean correta;
@@ -34,14 +32,6 @@ public class PerguntaOpcao {
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    public String getOpcao() {
-        return opcao;
-    }
-
-    public void setOpcao(String opcao) {
-        this.opcao = opcao;
     }
 
     public String getDescricao() {

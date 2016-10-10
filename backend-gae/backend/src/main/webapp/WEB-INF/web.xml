@@ -8,7 +8,10 @@
             <param-value>com.ciandt.internstellarapi.endpoint.EquipeEndpoint,
                 com.ciandt.internstellarapi.endpoint.GrupoEndpoint,
                 com.ciandt.internstellarapi.endpoint.PlanetaEndpoint,
-                com.ciandt.internstellarapi.endpoint.PerguntaEndpoint
+                com.ciandt.internstellarapi.endpoint.PerguntaEndpoint,
+                com.ciandt.internstellarapi.endpoint.AutenticacaoEndpoint,
+                com.ciandt.internstellarapi.endpoint.TokenEndpoint
+
             </param-value>
         </init-param>
     </servlet>

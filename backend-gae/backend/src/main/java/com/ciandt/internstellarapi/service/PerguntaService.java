@@ -8,7 +8,12 @@ import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.PerguntaValidator;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +22,8 @@ import java.util.UUID;
  */
 
 public class PerguntaService {
+
+    private static final int CODIGO_INICIAL_PERGUNTA = 1;
 
     private PerguntaDao perguntaDao;
 
@@ -49,8 +56,38 @@ public class PerguntaService {
         if (perguntasResult == null || perguntasResult.isEmpty()) {
             throw new NotFoundException(Messages.PerguntaMessages.NENHUMA_PERGUNTA_FOI_ENCONTRADA);
         }
+        Iterator<Pergunta> perguntasIterator = perguntasResult.iterator();
+        while (perguntasIterator.hasNext()) {
+            configurarOpcoes(perguntasIterator.next().getOpcoes());
+        }
         return perguntasResult;
     }
+
+    private void configurarOpcoes(List<PerguntaOpcao> opcoes) {
+        embaralharOpcoes(opcoes);
+        configurarCodigoOpcoes(opcoes);
+    }
+
+    private void configurarCodigoOpcoes(List<PerguntaOpcao> opcoes) {
+        Iterator<PerguntaOpcao> opcoesIterator = opcoes.iterator();
+        int codigo = CODIGO_INICIAL_PERGUNTA;
+        while (opcoesIterator.hasNext()) {
+            opcoesIterator.next().setCodigo(codigo++);
+        }
+    }
+
+    private void embaralharOpcoes(List<PerguntaOpcao> opcoes) {
+        Collections.sort(opcoes, new RamdomOrder());
+    }
+
+    private class RamdomOrder implements Comparator<PerguntaOpcao> {
+
+        @Override
+        public int compare(PerguntaOpcao perguntaOpcao, PerguntaOpcao t1) {
+            return Double.valueOf(Math.random()).compareTo( Math.random());
+        }
+    }
+
 
     public Pergunta insert(Pergunta item) throws BadRequestException {
 
