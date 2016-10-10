@@ -35,7 +35,9 @@ public class PerguntaService {
     }
 
     public List<Pergunta> list() {
-        return perguntaDao.listAll();
+        List<Pergunta> result = perguntaDao.listAll();
+        configurarPerguntasToPublic(result);
+        return result;
     }
 
     public Pergunta getById(Long id) throws NotFoundException {
@@ -46,7 +48,7 @@ public class PerguntaService {
         if (item == null) {
             throw new NotFoundException(Messages.PerguntaMessages.PERGUNTA_NAO_ENCONTRADA);
         }
-
+        configurarPerguntasToPublic(Collections.singletonList(item));
         return item;
     }
 
@@ -60,7 +62,22 @@ public class PerguntaService {
         while (perguntasIterator.hasNext()) {
             configurarOpcoes(perguntasIterator.next().getOpcoes());
         }
+        configurarPerguntasToPublic(perguntasResult);
         return perguntasResult;
+    }
+
+    private void configurarPerguntasToPublic(List<Pergunta> perguntas) {
+        removerResposta(perguntas);
+    }
+
+    private void removerResposta(List<Pergunta> perguntas) {
+        Iterator<Pergunta> iteratorPergunta = perguntas.iterator();
+        while (iteratorPergunta.hasNext()) {
+            Iterator<PerguntaOpcao> opcoesIterator = iteratorPergunta.next().getOpcoes().iterator();
+            while (opcoesIterator.hasNext()) {
+                opcoesIterator.next().setCorreta(Boolean.FALSE);
+            }
+        }
     }
 
     private void configurarOpcoes(List<PerguntaOpcao> opcoes) {
@@ -84,7 +101,7 @@ public class PerguntaService {
 
         @Override
         public int compare(PerguntaOpcao perguntaOpcao, PerguntaOpcao t1) {
-            return Double.valueOf(Math.random()).compareTo( Math.random());
+            return Double.valueOf(Math.random()).compareTo(Math.random());
         }
     }
 
