@@ -12,9 +12,7 @@ body{
   background: radial-gradient(ellipse at bottom,  #0D47A1 0%,#062450 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0D47A1', endColorstr='#062450',GradientType=1 );
   color: white;
-  overflow: scroll;
-  font-family: sans-serif;
-  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
   padding: 0;
 }
 
@@ -24,10 +22,8 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
   clear: both;
-  height: 800px;
   width: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  min-height: 800px;
 }
 
 #logo{
@@ -45,8 +41,21 @@ body{
   padding-right: 15px;
 }
 
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
 .height-320 {
   height: 320px;
+}
+
+.card {
+  background-color: #fff;
+  color: #062450;
+}
+
+.card-block {
+    padding: 1.25rem;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
