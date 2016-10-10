@@ -70,9 +70,6 @@ public class PerguntaValidator {
 
     private Boolean validarOpcoes(List<PerguntaOpcao> opcoes) throws BadRequestException {
         for (PerguntaOpcao po : opcoes) {
-            if (StringUtil.isEmptyOrWhitespace(po.getOpcao())) {
-                throw new BadRequestException(Messages.PerguntaMessages.IDENTIFICADOR_OPCAO_DEVE_SER_INFORMADO);
-            }
             if (StringUtil.isEmptyOrWhitespace(po.getDescricao())) {
                 throw new BadRequestException(Messages.PerguntaMessages.DESCRICAO_OPCAO_DEVE_SER_INFORMADA);
             }
@@ -80,35 +77,30 @@ public class PerguntaValidator {
         return true;
     }
 
-    private Boolean validarOpcaoCorretaInformada(String opcaoCorreta) throws BadRequestException {
-        if (StringUtil.isEmptyOrWhitespace(opcaoCorreta)) {
+    private Boolean validarOpcaoCorretaInformada(List<PerguntaOpcao> opcoes) throws BadRequestException {
+        Boolean respostaInformada = Boolean.FALSE;
+        for (PerguntaOpcao opcao : opcoes) {
+            if (Boolean.TRUE.equals(opcao.getCorreta())) {
+                respostaInformada = Boolean.TRUE;
+                break;
+            }
+        }
+        if (!respostaInformada) {
             throw new BadRequestException(Messages.PerguntaMessages.OPCAO_CORRETA_NAO_INFORMADA);
         }
         return Boolean.TRUE;
     }
 
-    private Boolean validarOpcaoCorreta(List<PerguntaOpcao> opcoes, String opcaoCorreta) throws BadRequestException {
-        Boolean opcaoCorretaValida = Boolean.FALSE;
-        for (PerguntaOpcao opcao : opcoes) {
-            if (opcao.getOpcao().equals(opcaoCorreta)) {
-                opcaoCorretaValida = Boolean.TRUE;
-            }
-        }
-        if (Boolean.FALSE.equals(opcaoCorretaValida)) {
-            throw new BadRequestException(Messages.PerguntaMessages.OPCAO_CORRETA_INVALIDA);
-        }
-        return Boolean.TRUE;
-    }
 
     public Boolean validar(Pergunta pergunta) throws BadRequestException {
         return validarPerguntaInformada(pergunta)
                 && validarTituloInformado(pergunta.getTitulo())
                 && validarDescricaoInformada(pergunta.getDescricao())
                 && validarOpcoesInformadas(pergunta.getOpcoes())
-                && validarOpcoes(pergunta.getOpcoes())
                 && validarPlanetaInformado(pergunta.getPlanetaId())
                 && validarPlaneta(pergunta.getPlanetaId())
-                && validarOpcaoCorretaInformada(pergunta.getOpcaoCorreta())
-                && validarOpcaoCorreta(pergunta.getOpcoes(), pergunta.getOpcaoCorreta());
+                && validarOpcoes(pergunta.getOpcoes())
+                && validarOpcaoCorretaInformada(pergunta.getOpcoes());
+
     }
 }

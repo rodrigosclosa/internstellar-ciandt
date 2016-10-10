@@ -2,17 +2,30 @@ package com.ciandt.internstellarapi.entity;
 
 import javax.annotation.Nullable;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 /**
  * Created by helder on 07/10/16.
  */
 public class PerguntaOpcao {
+
+    private String idOpcao;
     private Integer codigo;
+    @Ignore
     private String opcao;
     private String descricao;
     @Nullable
     private Boolean correta;
 
     public PerguntaOpcao() {
+    }
+
+    public String getIdOpcao() {
+        return idOpcao;
+    }
+
+    public void setIdOpcao(String idOpcao) {
+        this.idOpcao = idOpcao;
     }
 
     public Integer getCodigo() {

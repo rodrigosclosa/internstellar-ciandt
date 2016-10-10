@@ -2,6 +2,7 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.PerguntaDao;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.PerguntaValidator;
@@ -9,6 +10,7 @@ import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by helder on 07/10/16.
@@ -53,7 +55,7 @@ public class PerguntaService {
     public Pergunta insert(Pergunta item) throws BadRequestException {
 
         perguntaValidator.validar(item);
-
+        configPergunta(item);
         perguntaDao.insert(item);
 
         return item;
@@ -63,14 +65,19 @@ public class PerguntaService {
 
         perguntaValidator.validar(item);
         Pergunta u = perguntaDao.getById(item.getId());
-
         if (u == null) {
             throw new NotFoundException(Messages.PerguntaMessages.PERGUNTA_NAO_ENCONTRADA);
         }
-
+        configPergunta(item);
         perguntaDao.update(item);
 
         return item;
+    }
+
+    private void configPergunta(Pergunta pergunta) {
+        for (PerguntaOpcao opcao : pergunta.getOpcoes()) {
+            opcao.setIdOpcao(UUID.randomUUID().toString().replace("-", ""));
+        }
     }
 
     public void remove(Long id) throws NotFoundException {

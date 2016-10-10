@@ -44,13 +44,10 @@ public class Messages {
         public static String TITULO_PERGUNTA_NAO_INFORMADO = "Titulo da pergunta não informado.";
         public static String DESCRICAO_PERGUNTA_NAO_INFORMADA = "A descrição da pergunta não foi inforamada";
         public static String OPCOES_PERGUNTA_NAO_INFORMADAS = "As opções da pergunta não foram informadas";
-        public static String IDENTIFICADOR_OPCAO_DEVE_SER_INFORMADO = "O identificador da opção deve ser informado.";
         public static String DESCRICAO_OPCAO_DEVE_SER_INFORMADA = "A descrição da opção deve ser informada";
         public static String PLANETA_DEVE_SER_INFORMADO = "Um planeta deve ser informado para a pergunta";
         public static String PLANETA_INFORMADO_INVALIDO = "O planeta informado é inválido";
         public static String OPCAO_CORRETA_NAO_INFORMADA = "A opção correta não foi informada";
-        public static String OPCAO_CORRETA_INVALIDA = "A opção correta informada não é válida";
-
 
     }
 

@@ -15,8 +15,6 @@ public class Pergunta extends BaseEntity {
 
     private String descricao;
 
-    private String opcaoCorreta;
-
     private List<PerguntaOpcao> opcoes;
 
     @Index
@@ -57,11 +55,4 @@ public class Pergunta extends BaseEntity {
         this.planetaId = planetaId;
     }
 
-    public String getOpcaoCorreta() {
-        return opcaoCorreta;
-    }
-
-    public void setOpcaoCorreta(String opcaoCorreta) {
-        this.opcaoCorreta = opcaoCorreta;
-    }
 }
