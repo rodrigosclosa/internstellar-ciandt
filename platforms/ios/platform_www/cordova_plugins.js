@@ -146,6 +146,14 @@ module.exports = [
         "clobbers": [
             "OneSignal"
         ]
+    },
+    {
+        "file": "plugins/com-badrit-base64/www/Base64.js",
+        "id": "com-badrit-base64.Base64",
+        "pluginId": "com-badrit-base64",
+        "clobbers": [
+            "navigator.Base64"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -162,7 +170,8 @@ module.exports.metadata =
     "cordova-plugin-network-information": "1.3.0",
     "cordova-plugin-inappbrowser": "1.5.0",
     "cordova-plugin-compat": "1.0.0",
-    "onesignal-cordova-plugin": "2.0.4"
+    "onesignal-cordova-plugin": "2.0.4",
+    "com-badrit-base64": "0.2.0"
 }
 // BOTTOM OF METADATA
 });

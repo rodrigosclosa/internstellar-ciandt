@@ -11,7 +11,7 @@ body{
   background: -webkit-radial-gradient(bottom, ellipse cover,  #0D47A1 0%,#062450 100%);
   background: radial-gradient(ellipse at bottom,  #0D47A1 0%,#062450 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0D47A1', endColorstr='#062450',GradientType=1 );
-  color: white;
+  /*color: white;*/
   font-family: 'Roboto', sans-serif;
   padding: 0;
 }
@@ -56,6 +56,14 @@ body{
 
 .card-block {
     padding: 1.25rem;
+}
+
+.mdl-data-table th {
+  font-size: 20px !important;
+}
+
+.mdl-data-table td {
+  font-size: 16px !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */

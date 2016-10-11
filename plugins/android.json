@@ -39,6 +39,9 @@
         },
         "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
+        },
+        "com-badrit-base64": {
+            "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         }
     },
     "dependent_plugins": {
