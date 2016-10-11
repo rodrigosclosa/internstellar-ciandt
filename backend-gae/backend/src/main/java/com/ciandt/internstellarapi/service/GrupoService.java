@@ -12,7 +12,6 @@ import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
-import com.google.appengine.api.datastore.Query;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -88,12 +87,16 @@ public class GrupoService {
         return item;
     }
 
-    public Grupo insert(Grupo item) throws BadRequestException {
+    public Grupo insert(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
 
         //Validação Grupo
         if (grupoValidator.validarGrupo(item)) {
             try {
-                configGrupoValido(item);
+                configGrupo(item);
+                Grupo grupoJaCadastrado = validarEquipeComGrupoJaCadastrado(item);
+                if (grupoJaCadastrado != null) {
+                    this.remove(grupoJaCadastrado.getId());
+                }
                 item.setIdIntegrantes(integranteService.salvarGrupoIntegrantes(item.getIntegrantes()));
                 grupoDao.insert(item);
             } catch (NoSuchAlgorithmException e) {
@@ -104,6 +107,20 @@ public class GrupoService {
         }
 
         return item;
+    }
+
+    public Grupo validarEquipeComGrupoJaCadastrado(Grupo grupoSalvar) throws UnauthorizedException {
+
+        Grupo grupoBanco;
+        grupoBanco = grupoDao.getByProperty("idEquipe", grupoSalvar.getIdEquipe());
+        if (grupoBanco != null) {
+            if (!grupoSalvar.getSenha().equals(grupoBanco.getSenha())) {
+                throw new UnauthorizedException(
+                        Messages.GrupoMessages.EQUIPE_JA_CADASTRADA_SENHA_DEVE_SER_VALIDA_PARA_NOVO_REGISTRO);
+            }
+        }
+
+        return grupoBanco;
     }
 
     public Grupo update(Grupo item) throws ConflictException, NotFoundException {
@@ -117,7 +134,7 @@ public class GrupoService {
         return item;
     }
 
-    public void remove(Long id) throws ConflictException, NotFoundException {
+    public void remove(Long id) throws NotFoundException {
         Grupo item = grupoDao.getByKey(id);
         if (item == null) {
             throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
@@ -128,7 +145,7 @@ public class GrupoService {
     /**
      * Método que configura as informações a serem salvas no grupo
      */
-    private void configGrupoValido(Grupo grupo) throws NoSuchAlgorithmException {
+    private void configGrupo(Grupo grupo) throws NoSuchAlgorithmException {
         configurarSenha(grupo);
     }
 

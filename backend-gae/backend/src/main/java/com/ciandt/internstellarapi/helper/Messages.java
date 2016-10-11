@@ -13,6 +13,7 @@ public class Messages {
     public static class GrupoMessages {
         public static String GRUPO_NAO_INFORMADO = "Grupo não informado";
         public static String IDENTIFICADOR_EQUIPE_NAO_INFORMADO = "A equipe não foi informada";
+        public static String IDENTIFICADOR_EQUIPE_NAO_VALIDO = "A equipe informada não é válida.";
         public static String SENHA_NAO_INFORMADA = "Senha não informada";
         public static String SENHAS_INFORMADAS_NAO_COINCIDEM = "As senhas informadas não coincidem";
         public static String INTEGRANTES_DEVEM_SER_INFORMADOS = "Integrantes devem ser informados";
@@ -21,6 +22,8 @@ public class Messages {
         public static String NUMERO_INTEGRANTE_NAO_INFORMADO = "O número do integrante não foi informado";
         public static String GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
         public static String ERRO_REGISTRAR_GRUPO = "Erro ao registrar grupo.";
+        public static String EQUIPE_JA_CADASTRADA_SENHA_DEVE_SER_VALIDA_PARA_NOVO_REGISTRO =
+                "Equipe já tem um grupo cadastrado, senha deve coincidir para novo registro";
     }
 
     public static class EquipeMessages {
@@ -65,6 +68,7 @@ public class Messages {
         public static String TOKEN_NAO_ENCONTRADO = "Token não encontrado";
         public static String ACESSO_NEGADO_TOKEN_NAO_ENCONTRADO_INVALIDO = "Acesso negado. Token não encontrado ou inválido.";
 
+
     }
 
     public static class RespostaMessages {
@@ -79,6 +83,13 @@ public class Messages {
         public static final String RESPOSTA_JA_ENVIADA = "Resposta já enviada.";
         public static final String GRUPO_INFORMADO_INVALIDO = "Grupo informado inválido";
 
+    }
+
+    public static class AvaliacaoMessages {
+        public static final String AVALIACAO_NAO_ENCONTRADA = "Avaliação não encontrada.";
+        public static final String GRUPO_NAO_INFORMADO = "O grupo não foi informado";
+        public static final String DESAFIO_NAO_INFORMADO = "O desafio não foi informado";
+        public static final String GRUPO_INFORMADO_INVALIDO = "O grupo informado não é válido";
     }
 
 

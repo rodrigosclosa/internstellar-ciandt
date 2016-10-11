@@ -8,12 +8,14 @@ import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by rodrigosclosa on 05/10/16.
  */
 @Entity
 public class Grupo extends BaseEntity {
 
+    @Index
     private Long idEquipe;
 
     @Ignore

@@ -37,7 +37,7 @@ public class GrupoValidator {
                 throw new BadRequestException(Messages.GrupoMessages.IDENTIFICADOR_EQUIPE_NAO_INFORMADO);
             }
         } catch (NotFoundException ex) {
-            throw new BadRequestException(Messages.GrupoMessages.IDENTIFICADOR_EQUIPE_NAO_INFORMADO);
+            throw new BadRequestException(Messages.GrupoMessages.IDENTIFICADOR_EQUIPE_NAO_VALIDO);
         }
         return Boolean.TRUE;
     }

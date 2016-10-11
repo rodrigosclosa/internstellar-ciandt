@@ -8,6 +8,7 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.api.server.spi.response.UnauthorizedException;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class GrupoEndpoint {
     }
 
     @ApiMethod(name = "insertGrupo", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Grupo insertGrupo(Grupo item) throws BadRequestException {
+    public Grupo insertGrupo(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
         return grupoService.insert(item);
     }
 }
