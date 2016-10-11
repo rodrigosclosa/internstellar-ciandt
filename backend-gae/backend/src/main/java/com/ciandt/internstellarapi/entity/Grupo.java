@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by rodrigosclosa on 05/10/16.
@@ -25,7 +26,7 @@ public class Grupo extends BaseEntity {
     private String senhaVerificadora;
 
     @Ignore
-    private List<GrupoIntegrante> integrantes;
+    private List<Integrante> integrantes;
 
     private List<Long> idIntegrantes;
 
@@ -35,6 +36,7 @@ public class Grupo extends BaseEntity {
     private String token;
 
     public Grupo() {
+        this.integrantes = new ArrayList<Integrante>();
     }
 
     public Long getIdEquipe() {
@@ -53,12 +55,16 @@ public class Grupo extends BaseEntity {
         this.equipe = equipe;
     }
 
-    public List<GrupoIntegrante> getIntegrantes() {
+    public List<Integrante> getIntegrantes() {
         return integrantes;
     }
 
-    public void setIntegrantes(List<GrupoIntegrante> integrantes) {
+    public void setIntegrantes(List<Integrante> integrantes) {
         this.integrantes = integrantes;
+    }
+
+    public void addIntegrantes(Integrante integrante) {
+        this.integrantes.add(integrante);
     }
 
     public Text getFotoEquipe() {

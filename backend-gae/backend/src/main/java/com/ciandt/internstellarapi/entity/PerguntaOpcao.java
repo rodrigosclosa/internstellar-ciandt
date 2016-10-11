@@ -1,5 +1,7 @@
 package com.ciandt.internstellarapi.entity;
 
+import com.googlecode.objectify.annotation.Index;
+
 import javax.annotation.Nullable;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
@@ -9,6 +11,7 @@ import jdk.nashorn.internal.ir.annotations.Ignore;
  */
 public class PerguntaOpcao {
 
+    @Index
     private String idOpcao;
     private Integer codigo;
     private String descricao;

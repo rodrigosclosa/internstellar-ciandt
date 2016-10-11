@@ -1,12 +1,18 @@
 package com.ciandt.internstellarapi.service;
 
+import com.ciandt.internstellarapi.dao.GrupoDao;
+import com.ciandt.internstellarapi.dao.PerguntaDao;
 import com.ciandt.internstellarapi.dao.RespostaDao;
+import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.RespostaValidator;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
+
+import java.util.List;
 
 /**
  * Created by helder on 10/10/16.
@@ -15,19 +21,42 @@ import com.google.appengine.api.datastore.Query;
 public class RespostaService {
 
     private RespostaDao respostaDao;
+    private GrupoDao grupoDao;
+    private PerguntaDao perguntaDao;
 
     private RespostaValidator respostaValidator;
 
     public RespostaService() {
         respostaDao = new RespostaDao();
         respostaValidator = new RespostaValidator();
+        grupoDao = new GrupoDao();
+        perguntaDao = new PerguntaDao();
+    }
+
+    public List<Resposta> list() {
+        List<Resposta> retorno = respostaDao.listAll();
+
+        for (Resposta resp : retorno) {
+            Pergunta per = perguntaDao.getByKey(resp.getIdPergunta());
+
+            if(per != null) {
+                resp.setPergunta(per);
+            }
+
+            Grupo gr = grupoDao.getByKey(resp.getIdGrupo());
+
+            if(gr != null) {
+                resp.setGrupo(gr);
+            }
+        }
+
+        return retorno;
     }
 
     public Resposta insert(Resposta resposta) throws UnauthorizedException, BadRequestException {
         respostaValidator.validar(resposta);
         if (respostaJaEnviada(resposta)) {
             throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_JA_ENVIADA);
-
         } else {
             respostaDao.save(resposta);
         }

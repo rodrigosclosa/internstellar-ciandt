@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.entity;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * Created by helder on 07/10/16.
@@ -9,6 +10,7 @@ import com.googlecode.objectify.annotation.Entity;
 @Entity
 public class Planeta extends BaseEntity {
 
+    @Index
     private String nome;
 
     private String descricao;

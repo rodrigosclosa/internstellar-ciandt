@@ -1,9 +1,12 @@
 package com.ciandt.internstellarapi.entity;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by helder on 07/10/16.
@@ -19,6 +22,10 @@ public class Pergunta extends BaseEntity {
 
     @Index
     private Long planetaId;
+
+    @Ignore
+    @Nullable
+    private Planeta planeta;
 
     public Pergunta() {
     }
@@ -55,4 +62,12 @@ public class Pergunta extends BaseEntity {
         this.planetaId = planetaId;
     }
 
+    @Nullable
+    public Planeta getPlaneta() {
+        return planeta;
+    }
+
+    public void setPlaneta(@Nullable Planeta planeta) {
+        this.planeta = planeta;
+    }
 }

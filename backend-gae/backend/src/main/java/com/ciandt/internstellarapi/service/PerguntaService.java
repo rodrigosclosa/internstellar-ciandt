@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.PerguntaDao;
+import com.ciandt.internstellarapi.dao.PlanetaDao;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Planeta;
@@ -26,17 +27,28 @@ public class PerguntaService {
     private static final int CODIGO_INICIAL_PERGUNTA = 1;
 
     private PerguntaDao perguntaDao;
+    private PlanetaDao planetaDao;
 
     private PerguntaValidator perguntaValidator;
 
     public PerguntaService() {
         perguntaDao = new PerguntaDao();
         perguntaValidator = new PerguntaValidator();
+        planetaDao = new PlanetaDao();
     }
 
     public List<Pergunta> list() {
         List<Pergunta> result = perguntaDao.listAll();
         configurarPerguntasToPublic(result);
+
+        for (Pergunta P: result) {
+            Planeta pl = planetaDao.getByKey(P.getPlanetaId());
+
+            if(pl != null) {
+                P.setPlaneta(pl);
+            }
+        }
+
         return result;
     }
 
@@ -49,6 +61,13 @@ public class PerguntaService {
             throw new NotFoundException(Messages.PerguntaMessages.PERGUNTA_NAO_ENCONTRADA);
         }
         configurarPerguntasToPublic(Collections.singletonList(item));
+
+        Planeta pl = planetaDao.getByKey(item.getPlanetaId());
+
+        if(pl != null) {
+            item.setPlaneta(pl);
+        }
+
         return item;
     }
 
@@ -63,6 +82,15 @@ public class PerguntaService {
             configurarOpcoes(perguntasIterator.next().getOpcoes());
         }
         configurarPerguntasToPublic(perguntasResult);
+
+        for (Pergunta P: perguntasResult) {
+            Planeta pl = planetaDao.getByKey(P.getPlanetaId());
+
+            if(pl != null) {
+                P.setPlaneta(pl);
+            }
+        }
+
         return perguntasResult;
     }
 
@@ -75,7 +103,7 @@ public class PerguntaService {
         while (iteratorPergunta.hasNext()) {
             Iterator<PerguntaOpcao> opcoesIterator = iteratorPergunta.next().getOpcoes().iterator();
             while (opcoesIterator.hasNext()) {
-                opcoesIterator.next().setCorreta(Boolean.FALSE);
+                opcoesIterator.next().setCorreta(null);
             }
         }
     }
