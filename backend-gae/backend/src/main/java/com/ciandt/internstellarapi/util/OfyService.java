@@ -1,5 +1,6 @@
 package com.ciandt.internstellarapi.util;
 
+import com.ciandt.internstellarapi.entity.Avaliacao;
 import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Integrante;
@@ -24,6 +25,7 @@ public class OfyService {
         ObjectifyService.register(Pergunta.class);
         ObjectifyService.register(Token.class);
         ObjectifyService.register(Resposta.class);
+        ObjectifyService.register(Avaliacao.class);
     }
 
     public static Objectify ofy() {

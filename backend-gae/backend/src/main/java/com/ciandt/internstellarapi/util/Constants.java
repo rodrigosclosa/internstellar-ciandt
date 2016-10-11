@@ -92,4 +92,6 @@ public class Constants {
 
         return retorno;
     }
+
+    public static final String ADM_TOKEN = "edb011adff20426e89536c69ef58b087";
 }

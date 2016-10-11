@@ -3,11 +3,14 @@ package com.ciandt.internstellarapi.service;
 import com.ciandt.internstellarapi.dao.TokensDao;
 import com.ciandt.internstellarapi.entity.Token;
 import com.ciandt.internstellarapi.helper.Messages;
+import com.ciandt.internstellarapi.util.Constants;
+import com.google.api.server.spi.Constant;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.ReadPolicy;
 
 import java.util.List;
 
@@ -81,6 +84,12 @@ public class TokenService {
         token = tokensDao.getByProperty("idGrupo", idGrupo);
         if (token != null) {
             tokensDao.delete(token);
+        }
+    }
+
+    public void validarTokenAdministrador(String token) throws UnauthorizedException {
+        if (!Constants.ADM_TOKEN.equals(token)) {
+            throw new UnauthorizedException(Messages.TokenMessages.ACESSO_NEGADO_TOKEN_NAO_ENCONTRADO_INVALIDO);
         }
     }
 }
