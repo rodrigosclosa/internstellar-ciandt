@@ -20,11 +20,15 @@ public class RespostaService {
 
     public RespostaService() {
         respostaDao = new RespostaDao();
+        respostaValidator = new RespostaValidator();
     }
 
     public Resposta insert(Resposta resposta) throws UnauthorizedException, BadRequestException {
         respostaValidator.validar(resposta);
-        if (!respostaJaEnviada(resposta)) {
+        if (respostaJaEnviada(resposta)) {
+            throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_JA_ENVIADA);
+
+        } else {
             respostaDao.save(resposta);
         }
         return resposta;
@@ -35,11 +39,7 @@ public class RespostaService {
         Query.Filter filterPergunta = new Query.FilterPredicate("idPergunta", Query.FilterOperator.EQUAL, respostaInformada.getIdPergunta());
         Query.Filter filter = Query.CompositeFilterOperator.and(filterGrupo, filterPergunta);
         Resposta resposta = respostaDao.getByFilter(filter);
-        if (resposta != null) {
-            throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_JA_ENVIADA);
-        }
-        return Boolean.FALSE;
-
+        return resposta != null;
     }
 
 }

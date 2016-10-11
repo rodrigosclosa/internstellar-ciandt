@@ -75,6 +75,7 @@ public class Messages {
         public static final String RESPOSTA_CORRETA_NAO_INFORMADA = "Resposta não informada.";
         public static final String RESPOSTA_INVALIDA_PARA_A_PERGUNTA = "Resposta informada não válida.";
         public static final String RESPOSTA_JA_ENVIADA = "Resposta já enviada.";
+        public static final String GRUPO_INFORMADO_INVALIDO = "Grupo informado inválido";
 
     }
 

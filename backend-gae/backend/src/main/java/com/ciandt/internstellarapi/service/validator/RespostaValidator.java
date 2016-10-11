@@ -1,10 +1,12 @@
 package com.ciandt.internstellarapi.service.validator;
 
+import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.entity.Token;
 import com.ciandt.internstellarapi.helper.Messages;
+import com.ciandt.internstellarapi.service.GrupoService;
 import com.ciandt.internstellarapi.service.PerguntaService;
 import com.ciandt.internstellarapi.service.TokenService;
 import com.google.api.server.spi.response.BadRequestException;
@@ -24,12 +26,15 @@ public class RespostaValidator {
 
     private PerguntaService perguntaService;
 
+    private GrupoService grupoService;
+
     public RespostaValidator() {
         tokenService = new TokenService();
         perguntaService = new PerguntaService();
+        grupoService = new GrupoService();
     }
 
-    private boolean validarRespostaCorretaInformada(Resposta resposta) throws BadRequestException {
+    private boolean validarRespostaInformada(Resposta resposta) throws BadRequestException {
         if (resposta == null) {
             throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_NAO_INFORMADA);
         }
@@ -101,12 +106,23 @@ public class RespostaValidator {
         return Boolean.TRUE;
     }
 
+    private boolean validarGrupoValido(Long idGrupo) throws BadRequestException {
+        Grupo grupo = null;
+        try {
+            grupo = grupoService.getById(idGrupo);
+        } catch (NotFoundException e) {
+            throw new BadRequestException(Messages.RespostaMessages.GRUPO_INFORMADO_INVALIDO);
+        }
+        return Boolean.TRUE;
+    }
+
     public boolean validar(Resposta resposta) throws UnauthorizedException, BadRequestException {
-        return validarRespostaCorretaInformada(resposta)
-                && validarTokenValido(resposta.getToken())
-                && validarTokenGrupo(resposta.getToken(), resposta.getIdGrupo())
-                && validarGrupoInformado(resposta.getIdGrupo())
+        return validarRespostaInformada(resposta)
                 && validarTokenInformado(resposta.getToken())
+                && validarTokenValido(resposta.getToken())
+                && validarGrupoInformado(resposta.getIdGrupo())
+                && validarGrupoValido(resposta.getIdGrupo())
+                && validarTokenGrupo(resposta.getToken(), resposta.getIdGrupo())
                 && validarPerguntaInformada(resposta.getIdPergunta())
                 && validarRespostaCorretaInformada(resposta.getIdResposta())
                 && validarPerguntaRespostaValida(resposta);
