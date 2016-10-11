@@ -63,6 +63,8 @@ public class Messages {
         public static String ITEM_NAO_INFORMADO = "Item não informado";
         public static String TOKEN_NAO_INFORMADO = "Token não informado";
         public static String TOKEN_NAO_ENCONTRADO = "Token não encontrado";
+        public static String ACESSO_NEGADO_TOKEN_NAO_ENCONTRADO_INVALIDO = "Acesso negado. Token não encontrado ou inválido.";
+
     }
 
     public static class RespostaMessages {

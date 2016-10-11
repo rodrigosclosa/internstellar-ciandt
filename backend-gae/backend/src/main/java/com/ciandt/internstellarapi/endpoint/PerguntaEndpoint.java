@@ -3,12 +3,14 @@ package com.ciandt.internstellarapi.endpoint;
 
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.service.PerguntaService;
+import com.ciandt.internstellarapi.service.TokenService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.api.server.spi.response.UnauthorizedException;
 
 import java.util.List;
 
@@ -31,13 +33,18 @@ public class PerguntaEndpoint {
 
     private PerguntaService perguntaService;
 
+    private TokenService tokenService;
+
     public PerguntaEndpoint() {
         perguntaService = new PerguntaService();
+        tokenService = new TokenService();
     }
 
 
     @ApiMethod(name = "getPerguntas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Pergunta> getPerguntas(@Nullable @Named("idPLaneta") Long idPlaneta) throws NotFoundException {
+    public List<Pergunta> getPerguntas(@Nullable @Named("idPLaneta") Long idPlaneta,
+                                       @Named("token") String token) throws NotFoundException, UnauthorizedException {
+        tokenService.getByToken(token);
         if (idPlaneta == null) {
             return perguntaService.list();
         } else {

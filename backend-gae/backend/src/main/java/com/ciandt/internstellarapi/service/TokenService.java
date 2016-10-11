@@ -26,32 +26,11 @@ public class TokenService {
         return tokensDao.listAll();
     }
 
-    public List<Token> list(String codigo) throws NotFoundException {
-
-        List<Token> list = tokensDao.listByProperty("token", codigo);
-
-        if (list == null || list.size() < 1) {
-            throw new NotFoundException(String.format("Não foram encontrados dados para o código: %s", codigo));
-        }
-
-        return list;
-    }
-
-    public Token getByCodigo(String codigo) throws NotFoundException {
-        Token item = tokensDao.getByProperty("codigo", codigo);
-
-        if (item == null) {
-            throw new NotFoundException("Token não encontrado.");
-        }
-
-        return item;
-    }
-
     public Token getByToken(String token) throws UnauthorizedException {
         Token item = tokensDao.getByProperty("token", token);
 
         if (item == null) {
-            throw new UnauthorizedException("Acesso negado. Token não encontrado ou inválido.");
+            throw new UnauthorizedException(Messages.TokenMessages.ACESSO_NEGADO_TOKEN_NAO_ENCONTRADO_INVALIDO);
         }
 
         return item;
@@ -71,7 +50,7 @@ public class TokenService {
         Token u = tokensDao.getById(item.getId());
 
         if (u == null) {
-            throw new NotFoundException("Token não encontrado");
+            throw new NotFoundException(Messages.TokenMessages.TOKEN_NAO_ENCONTRADO);
         }
 
         tokensDao.update(item);
@@ -91,7 +70,7 @@ public class TokenService {
         Token item = tokensDao.getByKey(id);
 
         if (item == null) {
-            throw new NotFoundException("Token não encontrado.");
+            throw new NotFoundException(Messages.TokenMessages.TOKEN_NAO_ENCONTRADO);
         }
 
         tokensDao.delete(item);
