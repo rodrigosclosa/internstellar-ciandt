@@ -1,7 +1,10 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.GrupoDao;
+import com.ciandt.internstellarapi.dao.IntegranteDao;
 import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.Integrante;
+import com.ciandt.internstellarapi.entity.Token;
 import com.ciandt.internstellarapi.helper.AuthHelper;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.GrupoValidator;
@@ -19,6 +22,7 @@ import java.util.List;
 public class GrupoService {
 
     private GrupoDao grupoDao;
+    private IntegranteDao integranteDao;
 
     private GrupoValidator grupoValidator;
 
@@ -28,14 +32,39 @@ public class GrupoService {
         grupoDao = new GrupoDao();
         grupoValidator = new GrupoValidator();
         integranteService = new IntegranteService();
+        integranteDao = new IntegranteDao();
     }
 
     public List<Grupo> list() {
-        return grupoDao.listAll();
+        List<Grupo> retorno = grupoDao.listAll();
+
+        for (Grupo gr : retorno) {
+            for (Long idIntegrante : gr.getIdIntegrantes()) {
+                Integrante in = integranteDao.getByKey(idIntegrante);
+
+                if(idIntegrante != null) {
+                    gr.addIntegrantes(in);
+                }
+            }
+        }
+
+        return retorno;
     }
 
     public List<Grupo> findByName(String name) {
-        return grupoDao.listByProperty("name", name);
+        List<Grupo> retorno = grupoDao.listByProperty("name", name);
+
+        for (Grupo gr : retorno) {
+            for (Long idIntegrante : gr.getIdIntegrantes()) {
+                Integrante in = integranteDao.getByKey(idIntegrante);
+
+                if(idIntegrante != null) {
+                    gr.addIntegrantes(in);
+                }
+            }
+        }
+
+        return retorno;
     }
 
     public Grupo getById(Long id) throws NotFoundException {
@@ -45,6 +74,14 @@ public class GrupoService {
 
         if (item == null) {
             throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
+        }
+
+        for (Long idIntegrante : item.getIdIntegrantes()) {
+            Integrante in = integranteDao.getByKey(idIntegrante);
+
+            if(idIntegrante != null) {
+                item.addIntegrantes(in);
+            }
         }
 
         return item;

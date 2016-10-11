@@ -7,8 +7,4 @@
         <property name="base" direction="asc"/>
     </datastore-index>
 
-    <datastore-index kind="Token" ancestor="false" source="manual">
-        <property name="idGrupo" direction="asc"/>
-    </datastore-index>
-
 </datastore-indexes>

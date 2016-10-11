@@ -1,7 +1,7 @@
 package com.ciandt.internstellarapi.service.validator;
 
 import com.ciandt.internstellarapi.entity.Grupo;
-import com.ciandt.internstellarapi.entity.GrupoIntegrante;
+import com.ciandt.internstellarapi.entity.Integrante;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.EquipeService;
 import com.google.api.server.spi.response.BadRequestException;
@@ -51,12 +51,12 @@ public class GrupoValidator {
         return Boolean.TRUE;
     }
 
-    private boolean validarIntegrantesInformados(List<GrupoIntegrante> integrantes) throws BadRequestException {
+    private boolean validarIntegrantesInformados(List<Integrante> integrantes) throws BadRequestException {
         if (integrantes == null || integrantes.isEmpty()) {
             throw new BadRequestException(Messages.GrupoMessages.INTEGRANTES_DEVEM_SER_INFORMADOS);
         }
 
-        for (GrupoIntegrante gi : integrantes) {
+        for (Integrante gi : integrantes) {
             if (StringUtil.isEmptyOrWhitespace(gi.getNome())) {
                 throw new BadRequestException(Messages.GrupoMessages.NOME_DO_INTEGRANTE_DEVE_SER_INFORMADO);
             }
