@@ -59,11 +59,19 @@ public class AvaliacaoEndpoint {
         return avaliacao;
     }
 
+    @ApiMethod(name = "updateAvaliacao", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
+    public Avaliacao updateAvaliacao(@Named("token") String token, Avaliacao item)
+            throws NotFoundException, BadRequestException, UnauthorizedException {
+        tokenService.validarTokenAdministrador(token);
+        return avaliacaoService.update(item);
+    }
+
     @ApiMethod(name = "removeAvaliacao", path = "delete/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void removeEquipe(@Named("id") Long id, @Named("token") String token)
+    public void removeAvaliacao(@Named("id") Long id, @Named("token") String token)
             throws NotFoundException, UnauthorizedException {
         tokenService.validarTokenAdministrador(token);
         avaliacaoService.remove(id);
     }
+
 
 }

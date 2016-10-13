@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.endpoint;
 
 import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.service.PlanetaService;
 import com.ciandt.internstellarapi.service.TokenService;
@@ -42,7 +43,8 @@ public class PlanetaEndpoint {
 
     @ApiMethod(name = "getPlanetas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Planeta> getPlanetas(@Nullable @Named("nome") String nome,
-                                     @Named("token") String token) throws NotFoundException, UnauthorizedException {
+                                     @Named("token") String token)
+            throws NotFoundException, UnauthorizedException {
         tokenService.getByToken(token);
         if (nome == null) {
             return planetaService.list();
@@ -51,8 +53,17 @@ public class PlanetaEndpoint {
         }
     }
 
+
+    @ApiMethod(name = "updatePlaneta", path = "update", httpMethod = ApiMethod.HttpMethod.POST)
+    public Planeta updatePlaneta(Planeta planeta, @Named("tokenAdm") String token)
+            throws UnauthorizedException, BadRequestException, NotFoundException {
+        tokenService.validarTokenAdministrador(token);
+        return planetaService.update(planeta);
+    }
+
     @ApiMethod(name = "insertPlaneta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Planeta insertGrupo(Planeta item) throws BadRequestException {
+    public Planeta insertPlaneta(@Named("token") String token, Planeta item) throws BadRequestException, UnauthorizedException {
+        tokenService.validarTokenAdministrador(token);
         return planetaService.insert(item);
     }
 }

@@ -50,25 +50,6 @@ public class EquipeEndpoint {
         return equipeService.getById(id);
     }
 
-//    //TODO: Remover antes do evento
-//    @ApiMethod(name = "insertEquipe", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-//    public Equipe insertEquipe(Equipe item) throws ConflictException, NotFoundException {
-//        return equipeService.insert(item);
-//    }
-//
-//    //TODO: Remover antes do evento
-//    @ApiMethod(name = "updateEquipe", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
-//    public Equipe updateEquipe(Equipe item) throws NotFoundException, ConflictException {
-//        return equipeService.update(item);
-//    }
-//
-//    //TODO: Remover antes do evento
-//    @ApiMethod(name = "removeEquipe", path = "delete/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
-//    public void removeEquipe(@Named("id") Long id) throws NotFoundException, ConflictException {
-//        equipeService.remove(id);
-//    }
-
-    //TODO: Remover antes do evento
     @ApiMethod(name = "seedData", path = "seed", httpMethod = ApiMethod.HttpMethod.POST)
     public void seedData() throws NotFoundException, ConflictException {
         equipeService.seedData();

@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.endpoint;
 
 
+import com.ciandt.internstellarapi.entity.Avaliacao;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.service.PerguntaService;
 import com.ciandt.internstellarapi.service.TokenService;
@@ -52,8 +53,17 @@ public class PerguntaEndpoint {
         }
     }
 
+    @ApiMethod(name = "updatePergunta", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
+    public Pergunta updatePergunta(@Named("tokenAdm") String token, Pergunta pergunta)
+            throws UnauthorizedException, BadRequestException, NotFoundException {
+        tokenService.validarTokenAdministrador(token);
+        return perguntaService.update(pergunta);
+    }
+
     @ApiMethod(name = "insertPergunta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Pergunta insertPergunta(Pergunta item) throws BadRequestException {
+    public Pergunta insertPergunta(@Named("token") String token, Pergunta item)
+            throws BadRequestException, UnauthorizedException {
+        tokenService.validarTokenAdministrador(token);
         return perguntaService.insert(item);
     }
 }

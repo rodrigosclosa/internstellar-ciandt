@@ -2,6 +2,7 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.IntegranteDao;
 import com.ciandt.internstellarapi.entity.Integrante;
+import com.ciandt.internstellarapi.helper.EntityHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,8 @@ public class IntegranteService {
             integrantesToSave.add(integrante);
         }
         integranteDao.insertMany(integrantesToSave);
-        List<Long> idsIntegrantes = new ArrayList<>();
-        for (Integrante integranteSaved : integrantesToSave) {
-            idsIntegrantes.add(integranteSaved.getId());
-        }
+        List<Long> idsIntegrantes = EntityHelper.extracIds(integrantesToSave);
+
         return idsIntegrantes;
     }
 }

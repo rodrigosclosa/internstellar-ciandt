@@ -41,13 +41,7 @@ public class PerguntaService {
         List<Pergunta> result = perguntaDao.listAll();
         configurarPerguntasToPublic(result);
 
-        for (Pergunta P: result) {
-            Planeta pl = planetaDao.getByKey(P.getPlanetaId());
-
-            if(pl != null) {
-                P.setPlaneta(pl);
-            }
-        }
+        fetchPlaneta(result);
 
         return result;
     }
@@ -83,6 +77,12 @@ public class PerguntaService {
         }
         configurarPerguntasToPublic(perguntasResult);
 
+        fetchPlaneta(perguntasResult);
+
+        return perguntasResult;
+    }
+
+    private void fetchPlaneta(List<Pergunta> perguntasResult) {
         for (Pergunta P: perguntasResult) {
             Planeta pl = planetaDao.getByKey(P.getPlanetaId());
 
@@ -90,8 +90,6 @@ public class PerguntaService {
                 P.setPlaneta(pl);
             }
         }
-
-        return perguntasResult;
     }
 
     private void configurarPerguntasToPublic(List<Pergunta> perguntas) {
