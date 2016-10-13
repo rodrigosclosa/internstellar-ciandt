@@ -1,7 +1,10 @@
 package com.ciandt.internstellarapi.endpoint;
 
 import com.ciandt.internstellarapi.entity.Grupo;
+import com.ciandt.internstellarapi.entity.GrupoSumarioAvaliacao;
 import com.ciandt.internstellarapi.service.GrupoService;
+import com.ciandt.internstellarapi.service.GrupoSumarioService;
+import com.ciandt.internstellarapi.service.TokenService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -30,9 +33,14 @@ import javax.inject.Named;
 public class GrupoEndpoint {
 
     private GrupoService grupoService;
+    private GrupoSumarioService grupoSumarioService;
+    private TokenService tokenService;
+
 
     public GrupoEndpoint() {
         grupoService = new GrupoService();
+        grupoSumarioService = new GrupoSumarioService();
+        tokenService = new TokenService();
     }
 
     @ApiMethod(name = "getGrupos", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
@@ -52,5 +60,14 @@ public class GrupoEndpoint {
     @ApiMethod(name = "insertGrupo", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
     public Grupo insertGrupo(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
         return grupoService.insert(item);
+    }
+
+    @ApiMethod(name = "sumarioGrupo", path = "getSumario", httpMethod = ApiMethod.HttpMethod.GET)
+    public List<GrupoSumarioAvaliacao> sumarioGrupos(@Named("token") String token,
+                                                     @Named("base") String base) throws UnauthorizedException {
+        tokenService.validarTokenAdministrador(token);
+        List<GrupoSumarioAvaliacao> sumariosPorBase;
+        sumariosPorBase = grupoSumarioService.getSumarioGruposPorBase(base);
+        return null;
     }
 }

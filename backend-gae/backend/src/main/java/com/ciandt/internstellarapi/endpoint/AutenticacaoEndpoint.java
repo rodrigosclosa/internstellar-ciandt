@@ -41,7 +41,10 @@ public class AutenticacaoEndpoint {
     }
 
     @ApiMethod(name = "autenticacao", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public Grupo getGrupos(@Named("idGrupo") Long idGrupo, @Named("senha") String senha) throws NotFoundException, UnauthorizedException, InternalServerErrorException {
+    public Grupo getGrupos(@Named("idGrupo") Long idGrupo,
+                           @Named("senha") String senha) throws NotFoundException,
+            UnauthorizedException,
+            InternalServerErrorException {
         Grupo grupo;
         grupo = autenticacaoService.autenticarGrupo(idGrupo, senha);
         return grupo;

@@ -1,12 +1,12 @@
 package com.ciandt.internstellarapi.entity;
 
-import java.util.List;
+
+import java.io.Serializable;
 
 /**
  * Created by helder on 13/10/16.
  */
-
-public class GrupoSumarioAvaliacao {
+public class GrupoSumarioAvaliacao implements Serializable {
 
     private Grupo grupo;
 
