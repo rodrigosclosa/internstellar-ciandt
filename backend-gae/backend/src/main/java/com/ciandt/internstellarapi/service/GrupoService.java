@@ -15,6 +15,8 @@ import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,15 +41,7 @@ public class GrupoService {
     public List<Grupo> list() {
         List<Grupo> retorno = grupoDao.listAll();
 
-        for (Grupo gr : retorno) {
-            for (Long idIntegrante : gr.getIdIntegrantes()) {
-                Integrante in = integranteDao.getByKey(idIntegrante);
-
-                if(idIntegrante != null) {
-                    gr.addIntegrantes(in);
-                }
-            }
-        }
+        fetchIntegrantes(retorno);
 
         return retorno;
     }
@@ -55,18 +49,23 @@ public class GrupoService {
     public List<Grupo> findByName(String name) {
         List<Grupo> retorno = grupoDao.listByProperty("name", name);
 
+        fetchIntegrantes(retorno);
+
+        return retorno;
+    }
+
+    private void fetchIntegrantes(Collection<Grupo> retorno) {
         for (Grupo gr : retorno) {
             for (Long idIntegrante : gr.getIdIntegrantes()) {
                 Integrante in = integranteDao.getByKey(idIntegrante);
 
-                if(idIntegrante != null) {
+                if (idIntegrante != null) {
                     gr.addIntegrantes(in);
                 }
             }
         }
-
-        return retorno;
     }
+
 
     public Grupo getById(Long id) throws NotFoundException {
         Grupo item = null;
@@ -77,13 +76,7 @@ public class GrupoService {
             throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
         }
 
-        for (Long idIntegrante : item.getIdIntegrantes()) {
-            Integrante in = integranteDao.getByKey(idIntegrante);
-
-            if(idIntegrante != null) {
-                item.addIntegrantes(in);
-            }
-        }
+        fetchIntegrantes(Collections.singleton(item));
 
         return item;
     }
@@ -141,6 +134,14 @@ public class GrupoService {
             throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
         }
         grupoDao.delete(item);
+    }
+
+    public List<Grupo> findByEquipes(List<Long> idEquipes) {
+        Query.Filter filterByEquipes = new Query.FilterPredicate("idEquipe", Query.FilterOperator.IN, idEquipes);
+
+        List<Grupo> grupos = grupoDao.listByFilter(filterByEquipes);
+        fetchIntegrantes(grupos);
+        return grupos;
     }
 
     /**

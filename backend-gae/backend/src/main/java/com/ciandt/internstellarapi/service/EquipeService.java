@@ -105,6 +105,12 @@ public class EquipeService {
         equipeDao.delete(item);
     }
 
+    public List<Equipe> findByBase(String base) {
+        List<Equipe> result;
+        result = equipeDao.listByProperty("base", base);
+        return result;
+    }
+
     public void seedData() {
         List<Equipe> listaEquipes = Constants.NomesEquipes();
 

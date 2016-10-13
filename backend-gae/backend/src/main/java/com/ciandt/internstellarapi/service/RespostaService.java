@@ -5,6 +5,7 @@ import com.ciandt.internstellarapi.dao.PerguntaDao;
 import com.ciandt.internstellarapi.dao.RespostaDao;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.RespostaValidator;
@@ -39,13 +40,13 @@ public class RespostaService {
         for (Resposta resp : retorno) {
             Pergunta per = perguntaDao.getByKey(resp.getIdPergunta());
 
-            if(per != null) {
+            if (per != null) {
                 resp.setPergunta(per);
             }
 
             Grupo gr = grupoDao.getByKey(resp.getIdGrupo());
 
-            if(gr != null) {
+            if (gr != null) {
                 resp.setGrupo(gr);
             }
         }
@@ -62,6 +63,35 @@ public class RespostaService {
         }
         return resposta;
     }
+
+    public List<Resposta> findByGrupo(Long idGrupo) {
+        List<Resposta> result;
+        result = respostaDao.listByProperty("idGrupo", idGrupo);
+        return result;
+    }
+
+    public Integer countRespostasCorretas(List<Resposta> respostas) {
+        Integer count = 0;
+        for (Resposta resposta : respostas) {
+            String opcaoCorreta = getOpcaoCorreta(resposta.getPergunta());
+            if (opcaoCorreta.equals(resposta.getIdResposta())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private String getOpcaoCorreta(Pergunta pergunta) {
+        String idOpcao = null;
+        for (PerguntaOpcao opcao : pergunta.getOpcoes()) {
+            if (opcao.getCorreta()) {
+                idOpcao = opcao.getIdOpcao();
+                break;
+            }
+        }
+        return idOpcao;
+    }
+
 
     private boolean respostaJaEnviada(Resposta respostaInformada) throws BadRequestException {
         Query.Filter filterGrupo = new Query.FilterPredicate("idGrupo", Query.FilterOperator.EQUAL, respostaInformada.getIdGrupo());

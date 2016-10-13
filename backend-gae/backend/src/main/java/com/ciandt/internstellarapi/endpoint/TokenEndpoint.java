@@ -8,6 +8,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.api.server.spi.response.UnauthorizedException;
 
 import java.util.List;
 
@@ -35,7 +36,8 @@ public class TokenEndpoint {
     }
 
     @ApiMethod(name = "getTokens", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Token> getTokens() throws NotFoundException {
+    public List<Token> getTokens(@Named("token") String token) throws NotFoundException, UnauthorizedException {
+        tokenService.validarTokenAdministrador(token);
         return tokenService.list();
     }
 }
