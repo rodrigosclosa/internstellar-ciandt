@@ -49,13 +49,13 @@ public class GrupoSumarioService {
 
             if (respostasGrupo != null && !respostasGrupo.isEmpty()) {
                 Integer quantidadeRespostasCorretas = respostaService.countRespostasCorretas(respostasGrupo);
-                sumario.setCountRespostasCorretas(quantidadeRespostasCorretas);
+                sumario.setCountRespCorr(quantidadeRespostasCorretas);
             }
             List<Avaliacao> avaliacoes = avaliacaoService.findByGrupo(g.getId());
             if (avaliacoes != null && !avaliacoes.isEmpty()) {
-                sumario.setDesafiosConcluídos(avaliacoes.size());
+                sumario.setDesafConc(avaliacoes.size());
             }
-
+            gruposSumario.add(sumario);
         }
 
         return gruposSumario;

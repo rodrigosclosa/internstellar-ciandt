@@ -37,6 +37,12 @@ public class RespostaService {
     public List<Resposta> list() {
         List<Resposta> retorno = respostaDao.listAll();
 
+        fetchPergunta(retorno);
+
+        return retorno;
+    }
+
+    private void fetchPergunta(List<Resposta> retorno) {
         for (Resposta resp : retorno) {
             Pergunta per = perguntaDao.getByKey(resp.getIdPergunta());
 
@@ -50,8 +56,6 @@ public class RespostaService {
                 resp.setGrupo(gr);
             }
         }
-
-        return retorno;
     }
 
     public Resposta insert(Resposta resposta) throws UnauthorizedException, BadRequestException {
@@ -67,6 +71,7 @@ public class RespostaService {
     public List<Resposta> findByGrupo(Long idGrupo) {
         List<Resposta> result;
         result = respostaDao.listByProperty("idGrupo", idGrupo);
+        fetchPergunta(result);
         return result;
     }
 

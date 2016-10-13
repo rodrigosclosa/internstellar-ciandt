@@ -33,14 +33,9 @@ import javax.inject.Named;
 public class GrupoEndpoint {
 
     private GrupoService grupoService;
-    private GrupoSumarioService grupoSumarioService;
-    private TokenService tokenService;
-
 
     public GrupoEndpoint() {
         grupoService = new GrupoService();
-        grupoSumarioService = new GrupoSumarioService();
-        tokenService = new TokenService();
     }
 
     @ApiMethod(name = "getGrupos", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
@@ -62,12 +57,5 @@ public class GrupoEndpoint {
         return grupoService.insert(item);
     }
 
-    @ApiMethod(name = "sumarioGrupo", path = "getSumario", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<GrupoSumarioAvaliacao> sumarioGrupos(@Named("token") String token,
-                                                     @Named("base") String base) throws UnauthorizedException {
-        tokenService.validarTokenAdministrador(token);
-        List<GrupoSumarioAvaliacao> sumariosPorBase;
-        sumariosPorBase = grupoSumarioService.getSumarioGruposPorBase(base);
-        return null;
-    }
+
 }

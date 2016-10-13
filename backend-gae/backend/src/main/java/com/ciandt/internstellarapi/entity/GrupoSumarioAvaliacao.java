@@ -10,13 +10,13 @@ public class GrupoSumarioAvaliacao implements Serializable {
 
     private Grupo grupo;
 
-    private Integer countRespostasCorretas;
+    private Integer countRespCorr;
 
-    private Integer desafiosConcluídos;
+    private Integer desafConc;
 
-    public GrupoSumarioAvaliacao(){
-        countRespostasCorretas = 0;
-        desafiosConcluídos = 0;
+    public GrupoSumarioAvaliacao() {
+        countRespCorr = 0;
+        desafConc = 0;
     }
 
     public Grupo getGrupo() {
@@ -27,19 +27,19 @@ public class GrupoSumarioAvaliacao implements Serializable {
         this.grupo = grupo;
     }
 
-    public Integer getCountRespostasCorretas() {
-        return countRespostasCorretas;
+    public Integer getCountRespCorr() {
+        return countRespCorr;
     }
 
-    public void setCountRespostasCorretas(Integer countRespostasCorretas) {
-        this.countRespostasCorretas = countRespostasCorretas;
+    public void setCountRespCorr(Integer countRespCorr) {
+        this.countRespCorr = countRespCorr;
     }
 
-    public Integer getDesafiosConcluídos() {
-        return desafiosConcluídos;
+    public Integer getDesafConc() {
+        return desafConc;
     }
 
-    public void setDesafiosConcluídos(Integer desafiosConcluídos) {
-        this.desafiosConcluídos = desafiosConcluídos;
+    public void setDesafConc(Integer desafConc) {
+        this.desafConc = desafConc;
     }
 }

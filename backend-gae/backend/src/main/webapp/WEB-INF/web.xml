@@ -12,7 +12,8 @@
                 com.ciandt.internstellarapi.endpoint.AutenticacaoEndpoint,
                 com.ciandt.internstellarapi.endpoint.TokenEndpoint,
                 com.ciandt.internstellarapi.endpoint.RespostaEndpoint,
-                com.ciandt.internstellarapi.endpoint.AvaliacaoEndpoint
+                com.ciandt.internstellarapi.endpoint.AvaliacaoEndpoint,
+                com.ciandt.internstellarapi.endpoint.SumarioEndpoint
             </param-value>
         </init-param>
     </servlet>
