@@ -12,6 +12,7 @@ import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.appengine.api.datastore.Query;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
