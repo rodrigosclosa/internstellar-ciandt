@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.PlanetaDao;
+import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.google.api.server.spi.response.BadRequestException;
@@ -17,13 +18,31 @@ import java.util.List;
 public class PlanetaService {
 
     private PlanetaDao planetaDao;
+    private GrupoService grupoService;
 
     public PlanetaService() {
         planetaDao = new PlanetaDao();
+        grupoService = new GrupoService();
     }
 
     public List<Planeta> list() {
-        return planetaDao.listAll();
+        List<Planeta> retorno = planetaDao.listAll();
+
+        for (Planeta p : retorno) {
+            if(p.getIdGrupoDono() != null) {
+                try {
+                    Grupo gp = grupoService.getById(p.getIdGrupoDono());
+
+                    if(gp != null) {
+                        p.setGrupoDono(gp);
+                    }
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return retorno;
     }
 
     public List<Planeta> list(String nome) throws NotFoundException {
@@ -33,6 +52,20 @@ public class PlanetaService {
 
         if (list == null || list.size() == 0) {
             throw new NotFoundException(String.format(Messages.PlanetaMessages.NAO_FORAM_ENCONTRADOS_PLANETAS_NOME, nome));
+        }
+
+        for (Planeta p : list) {
+            if(p.getIdGrupoDono() != null) {
+                try {
+                    Grupo gp = grupoService.getById(p.getIdGrupoDono());
+
+                    if(gp != null) {
+                        p.setGrupoDono(gp);
+                    }
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return list;
@@ -47,7 +80,39 @@ public class PlanetaService {
             throw new NotFoundException(Messages.PlanetaMessages.PLANETA_NAO_ENCONTRADO);
         }
 
+        if(item.getIdGrupoDono() != null) {
+            try {
+                Grupo gp = grupoService.getById(item.getIdGrupoDono());
+
+                if(gp != null) {
+                    item.setGrupoDono(gp);
+                }
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
         return item;
+    }
+
+    public Planeta setGrupoDono(Long idPlaneta, Long idGrupo) throws NotFoundException {
+        Planeta pl = planetaDao.getByKey(idPlaneta);
+
+        if(pl == null) {
+            throw new NotFoundException(Messages.PlanetaMessages.PLANETA_NAO_ENCONTRADO);
+        }
+
+        Grupo gp = grupoService.getById(idGrupo);
+
+        if(gp == null) {
+            throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
+        }
+
+        pl.setIdGrupoDono(idGrupo);
+
+        planetaDao.update(pl);
+
+        return pl;
     }
 
     public Planeta insert(Planeta item) throws BadRequestException {
