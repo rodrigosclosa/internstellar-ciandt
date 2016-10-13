@@ -120,6 +120,14 @@ module.exports = [
         "clobbers": [
             "OneSignal"
         ]
+    },
+    {
+        "id": "com-badrit-base64.Base64",
+        "file": "plugins/com-badrit-base64/www/Base64.js",
+        "pluginId": "com-badrit-base64",
+        "clobbers": [
+            "navigator.Base64"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -136,7 +144,8 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.0",
     "cordova-plugin-whitelist": "1.3.0",
     "ionic-plugin-keyboard": "2.2.1",
-    "onesignal-cordova-plugin": "2.0.4"
+    "onesignal-cordova-plugin": "2.0.4",
+    "com-badrit-base64": "0.2.0"
 };
 // BOTTOM OF METADATA
 });
