@@ -10,41 +10,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Team Ursa - Verde</td>
+            <tr ng-repeat="item in items">
+                <td>{{item.grupo.id}}</td>
+                <td>{{item.grupo.equipe.nome + ' ' + item.grupo.equipe.cor}}</td>
                 <td>
-                    Rodrigo Sclosa</br>
-                    Felipe Prado</br>   
-                    Larissa Dominique</br>
-                    Erick Saito
+                    <div ng-repeat="integrante in item.grupo.integrantes">{{integrante.nome}}</div>
                 </td>
-                <td>3</td>
-                <td>15</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Team Órion - Verde</td>
-                <td>
-                    Rodrigo Sclosa</br>
-                    Felipe Prado</br>
-                    Larissa Dominique</br>
-                    Erick Saito
-                </td>
-                <td>1</td>
-                <td>12</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Team Andrômeda - Verde</td>
-                <td>
-                    Rodrigo Sclosa</br>
-                    Felipe Prado</br>
-                    Larissa Dominique</br>
-                    Erick Saito
-                </td>
-                <td>1</td>
-                <td>8</td>
+                <td>{{item.countRespCorr}}</td>
+                <td>{{item.desafConc}}</td>
             </tr>
         </tbody>
     </table>
