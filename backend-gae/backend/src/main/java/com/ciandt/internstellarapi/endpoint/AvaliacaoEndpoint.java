@@ -7,6 +7,7 @@ import com.ciandt.internstellarapi.service.TokenService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -40,7 +41,7 @@ public class AvaliacaoEndpoint {
     }
 
     @ApiMethod(name = "getAvaliacao", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Avaliacao> getAvaliacoes(@Named("idGrupo") Long idGrupo,
+    public List<Avaliacao> getAvaliacoes(@Nullable @Named("idGrupo") Long idGrupo,
                                          @Named("token") String token)
             throws NotFoundException, UnauthorizedException {
         tokenService.validarTokenAdministrador(token);
