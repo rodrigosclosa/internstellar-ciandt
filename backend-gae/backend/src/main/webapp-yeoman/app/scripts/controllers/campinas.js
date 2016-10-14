@@ -4,10 +4,10 @@ angular.module('internstellarDashApp')
   .controller('CampinasCtrl', ['$scope', '$interval', function ($scope, $interval) {
     $scope.items = [];
 
-    $scope.updateBoard('campinas');
+    $scope.updateBoard('Campinas');
 
     $interval(function() {
-      $scope.updateBoard('campinas');
+      $scope.updateBoard('Campinas');
     }, $scope.updateInterval);
 
   }]);

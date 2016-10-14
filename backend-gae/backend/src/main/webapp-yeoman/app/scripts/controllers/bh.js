@@ -4,10 +4,10 @@ angular.module('internstellarDashApp')
   .controller('BhCtrl', ['$scope', '$interval', function ($scope, $interval) {
     $scope.items = [];
 
-    $scope.updateBoard('bh');
+    $scope.updateBoard('BH');
 
     $interval(function() {
-      $scope.updateBoard('bh');
+      $scope.updateBoard('BH');
     }, $scope.updateInterval);
 
   }]);
