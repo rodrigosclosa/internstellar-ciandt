@@ -14,9 +14,15 @@ public class GrupoSumarioAvaliacao implements Serializable {
 
     private Integer desafConc;
 
+    private Long tempoTotalRespostas;
+
+    private Long tempoTotalDesafios;
+
     public GrupoSumarioAvaliacao() {
         countRespCorr = 0;
         desafConc = 0;
+        tempoTotalDesafios = 0L;
+        tempoTotalRespostas = 0L;
     }
 
     public Grupo getGrupo() {
@@ -41,5 +47,21 @@ public class GrupoSumarioAvaliacao implements Serializable {
 
     public void setDesafConc(Integer desafConc) {
         this.desafConc = desafConc;
+    }
+
+    public Long getTempoTotalRespostas() {
+        return tempoTotalRespostas;
+    }
+
+    public void setTempoTotalRespostas(Long tempoTotalRespostas) {
+        this.tempoTotalRespostas = tempoTotalRespostas;
+    }
+
+    public Long getTempoTotalDesafios() {
+        return tempoTotalDesafios;
+    }
+
+    public void setTempoTotalDesafios(Long tempoTotalDesafios) {
+        this.tempoTotalDesafios = tempoTotalDesafios;
     }
 }

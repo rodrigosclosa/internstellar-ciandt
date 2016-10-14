@@ -61,7 +61,7 @@ public class PerguntaEndpoint {
     }
 
     @ApiMethod(name = "insertPergunta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Pergunta insertPergunta(@Named("token") String token, Pergunta item)
+    public Pergunta insertPergunta(@Named("tokenAdm") String token, Pergunta item)
             throws BadRequestException, UnauthorizedException {
         tokenService.validarTokenAdministrador(token);
         return perguntaService.insert(item);

@@ -14,6 +14,7 @@ import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,15 +79,15 @@ public class RespostaService {
         return result;
     }
 
-    public Integer countRespostasCorretas(List<Resposta> respostas) {
-        Integer count = 0;
+    public List<Resposta> respostasCorretas(List<Resposta> respostas) {
+        List<Resposta> respostasCorretas = new ArrayList<>();
         for (Resposta resposta : respostas) {
             String opcaoCorreta = getOpcaoCorreta(resposta.getPergunta());
             if (opcaoCorreta.equals(resposta.getIdResposta())) {
-                count++;
+                respostasCorretas.add(resposta);
             }
         }
-        return count;
+        return respostasCorretas;
     }
 
     private String getOpcaoCorreta(Pergunta pergunta) {
