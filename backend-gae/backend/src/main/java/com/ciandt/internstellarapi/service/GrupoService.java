@@ -4,12 +4,10 @@ import com.ciandt.internstellarapi.dao.GrupoDao;
 import com.ciandt.internstellarapi.dao.IntegranteDao;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Integrante;
-import com.ciandt.internstellarapi.entity.Token;
 import com.ciandt.internstellarapi.helper.AuthHelper;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.GrupoValidator;
 import com.google.api.server.spi.response.BadRequestException;
-import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
@@ -88,11 +86,13 @@ public class GrupoService {
             try {
                 configGrupo(item);
                 Grupo grupoJaCadastrado = validarEquipeComGrupoJaCadastrado(item);
-                if (grupoJaCadastrado != null) {
-                    this.remove(grupoJaCadastrado.getId());
-                }
                 item.setIdIntegrantes(integranteService.salvarGrupoIntegrantes(item.getIntegrantes()));
-                grupoDao.insert(item);
+                if (grupoJaCadastrado != null) {
+                    item.setId(grupoJaCadastrado.getId());
+                    this.update(item);
+                } else {
+                    grupoDao.insert(item);
+                }
             } catch (NoSuchAlgorithmException e) {
                 throw new BadRequestException(e.getMessage());
             }
@@ -117,7 +117,7 @@ public class GrupoService {
         return grupoBanco;
     }
 
-    public Grupo update(Grupo item) throws ConflictException, NotFoundException {
+    public Grupo update(Grupo item) throws NotFoundException {
         //Validação atualização
         Grupo grupo = grupoDao.getById(item.getId());
         if (grupo == null) {

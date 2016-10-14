@@ -12,7 +12,7 @@ import static com.ciandt.internstellarapi.util.OfyService.ofy;
 
 public class IntegranteDao extends GenericDao<Integrante> {
 
-    public List<Integrante> insertMany(List<Integrante> integrantesToSave) {
+    public List<Integrante> saveMany(List<Integrante> integrantesToSave) {
         ofy().save().entities(integrantesToSave).now();
         return integrantesToSave;
     }
