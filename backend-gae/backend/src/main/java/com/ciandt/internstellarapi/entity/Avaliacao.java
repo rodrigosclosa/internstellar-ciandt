@@ -3,11 +3,13 @@ package com.ciandt.internstellarapi.entity;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 
+import java.util.Date;
+
 /**
  * Created by helder on 11/10/16.
  */
 @Entity
-public class Avaliacao extends BaseEntity {
+public class Avaliacao extends BaseEntity implements DataControl {
 
     @Index
     private Long idGrupo;
@@ -17,6 +19,12 @@ public class Avaliacao extends BaseEntity {
     private Integer desafio;
 
     private String notes;
+
+
+    private Long data;
+
+    private String dataFormatada;
+
 
     public Avaliacao() {
     }
@@ -51,5 +59,24 @@ public class Avaliacao extends BaseEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public Long getData() {
+        return data;
+    }
+    @Override
+    public void setData(Long data) {
+        this.data = data;
+    }
+
+    @Override
+    public String getDataFormatada() {
+        return dataFormatada;
+    }
+
+    @Override
+    public void setDataFormatada(String dataFormatada) {
+        this.dataFormatada = dataFormatada;
     }
 }

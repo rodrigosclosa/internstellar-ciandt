@@ -4,13 +4,15 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
+import java.util.Date;
+
 import javax.annotation.Nullable;
 
 /**
  * Created by helder on 10/10/16.
  */
 @Entity
-public class Resposta extends BaseEntity {
+public class Resposta extends BaseEntity implements DataControl {
 
     @Index
     private Long idGrupo;
@@ -30,6 +32,10 @@ public class Resposta extends BaseEntity {
 
     @Ignore
     private String token;
+
+    private Long data;
+
+    private String dataFormatada;
 
     public Resposta() {
     }
@@ -82,5 +88,25 @@ public class Resposta extends BaseEntity {
 
     public void setPergunta(@Nullable Pergunta pergunta) {
         this.pergunta = pergunta;
+    }
+
+    @Override
+    public Long getData() {
+        return data;
+    }
+
+    @Override
+    public String getDataFormatada() {
+        return dataFormatada;
+    }
+
+    @Override
+    public void setDataFormatada(String dataFormatada) {
+        this.dataFormatada = dataFormatada;
+    }
+
+    @Override
+    public void setData(Long data) {
+        this.data = data;
     }
 }

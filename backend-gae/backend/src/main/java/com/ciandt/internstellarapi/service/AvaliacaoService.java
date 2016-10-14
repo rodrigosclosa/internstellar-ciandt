@@ -6,6 +6,7 @@ import com.ciandt.internstellarapi.entity.Avaliacao;
 import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.AvaliacaoValidator;
+import com.ciandt.internstellarapi.util.DataControlHelper;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -46,6 +47,7 @@ public class AvaliacaoService {
 
         avaliacaoValidator.validar(item);
 
+        DataControlHelper.PreencherDataComHoraAtual(item);
         avaliacaoDao.insert(item);
 
         return item;
@@ -60,7 +62,7 @@ public class AvaliacaoService {
         if (u == null) {
             throw new NotFoundException(Messages.AvaliacaoMessages.AVALIACAO_NAO_ENCONTRADA);
         }
-
+        DataControlHelper.PreencherDataComHoraAtual(item);
         avaliacaoDao.update(item);
 
         return item;

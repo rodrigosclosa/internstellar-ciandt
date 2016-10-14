@@ -9,6 +9,7 @@ import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.RespostaValidator;
+import com.ciandt.internstellarapi.util.DataControlHelper;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
@@ -62,9 +63,11 @@ public class RespostaService {
         respostaValidator.validar(resposta);
         if (respostaJaEnviada(resposta)) {
             throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_JA_ENVIADA);
-        } else {
-            respostaDao.save(resposta);
         }
+
+        DataControlHelper.PreencherDataComHoraAtual(resposta);
+        respostaDao.save(resposta);
+
         return resposta;
     }
 
