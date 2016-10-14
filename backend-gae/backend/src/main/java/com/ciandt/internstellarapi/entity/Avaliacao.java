@@ -12,9 +12,7 @@ public class Avaliacao extends BaseEntity {
     @Index
     private Long idGrupo;
 
-    private String idAvaliador;
-
-    private AvaliadorAvaliacao avaliador;
+    private String loginSensei;
 
     private Integer desafio;
 
@@ -31,20 +29,12 @@ public class Avaliacao extends BaseEntity {
         this.idGrupo = idGrupo;
     }
 
-    public String getIdAvaliador() {
-        return idAvaliador;
+    public String getLoginSensei() {
+        return loginSensei;
     }
 
-    public void setIdAvaliador(String idAvaliador) {
-        this.idAvaliador = idAvaliador;
-    }
-
-    public AvaliadorAvaliacao getAvaliador() {
-        return avaliador;
-    }
-
-    public void setAvaliador(AvaliadorAvaliacao avaliador) {
-        this.avaliador = avaliador;
+    public void setLoginSensei(String loginSensei) {
+        this.loginSensei = loginSensei;
     }
 
     public Integer getDesafio() {
