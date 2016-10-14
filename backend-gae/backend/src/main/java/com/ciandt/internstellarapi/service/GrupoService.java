@@ -44,14 +44,6 @@ public class GrupoService {
         return retorno;
     }
 
-    public List<Grupo> findByName(String name) {
-        List<Grupo> retorno = grupoDao.listByProperty("name", name);
-
-        fetchIntegrantes(retorno);
-
-        return retorno;
-    }
-
     private void fetchIntegrantes(Collection<Grupo> retorno) {
         for (Grupo gr : retorno) {
             for (Long idIntegrante : gr.getIdIntegrantes()) {

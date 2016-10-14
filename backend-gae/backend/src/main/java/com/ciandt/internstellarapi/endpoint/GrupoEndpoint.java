@@ -39,12 +39,8 @@ public class GrupoEndpoint {
     }
 
     @ApiMethod(name = "getGrupos", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Grupo> getGrupos(@Nullable @Named("nome") String nome) throws NotFoundException {
-        if (nome == null) {
-            return grupoService.list();
-        } else {
-            return grupoService.findByName(nome);
-        }
+    public List<Grupo> getGrupos() throws NotFoundException {
+        return grupoService.list();
     }
 
     @ApiMethod(name = "getGrupo", path = "get/{id}", httpMethod = ApiMethod.HttpMethod.GET)
