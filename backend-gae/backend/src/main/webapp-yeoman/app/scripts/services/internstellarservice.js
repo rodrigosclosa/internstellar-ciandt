@@ -17,8 +17,8 @@ angular.module('internstellarDashApp')
 
         var token = 'edb011adff20426e89536c69ef58b087';
 
-        $http.get('https://internstellar-ciandt.appspot.com/_ah'
-            + '/api/sumarios/v1/getSumario?base=' + cidade + '&token=' + token)
+        $http.get('https://internstellar-ciandt.appspot.com/_ah/api/'
+            + 'sumarios/v1/getSumario?base=' + cidade + '&token=' + token)
           .success(function(data) {
               defer.resolve(data);
             })

@@ -42,6 +42,7 @@ public class GrupoService {
         List<Grupo> retorno = grupoDao.listAll();
 
         fetchIntegrantes(retorno);
+        fetchEquipe(retorno);
 
         return retorno;
     }
@@ -53,6 +54,9 @@ public class GrupoService {
         if(equipesBase != null) {
             List<Long> idEquipes = EntityHelper.extracIds(equipesBase);
             grupos = findByEquipes(idEquipes);
+
+            fetchIntegrantes(grupos);
+            fetchEquipe(grupos);
         }
 
         return grupos;
@@ -70,6 +74,20 @@ public class GrupoService {
         }
     }
 
+    private void fetchEquipe(Collection<Grupo> retorno) {
+        for (Grupo gr : retorno) {
+            if (gr.getIdEquipe() != null) {
+                Equipe eq = null;
+                try {
+                    eq = equipeService.getById(gr.getIdEquipe());
+                    gr.setEquipe(eq);
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     public Grupo getById(Long id) throws NotFoundException {
         Grupo item = null;
@@ -81,6 +99,7 @@ public class GrupoService {
         }
 
         fetchIntegrantes(Collections.singleton(item));
+        fetchEquipe(Collections.singleton(item));
 
         return item;
     }
