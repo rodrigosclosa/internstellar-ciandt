@@ -30,6 +30,13 @@ public class GrupoValidator {
         return Boolean.TRUE;
     }
 
+    private boolean validarNomeInformado(String nome) throws BadRequestException {
+        if (nome == null) {
+            throw new BadRequestException(Messages.GrupoMessages.NOME_GRUPO_NAO_INFORMADA);
+        }
+        return Boolean.TRUE;
+    }
+
     private boolean validarFotoInformada(Text foto) throws BadRequestException {
         if (foto == null) {
             throw new BadRequestException(Messages.GrupoMessages.FOTO_GRUPO_NAO_INFORMADA);
@@ -81,6 +88,7 @@ public class GrupoValidator {
     public boolean validarGrupo(Grupo grupo) throws BadRequestException {
         return validarGrupoInformado(grupo)
                 && validarFotoInformada(grupo.getFotoEquipe())
+                %&& validarNomeInformado(grupo.getNome())
                 && validarIdEquipeInformado(grupo.getIdEquipe())
                 && validarSenhasInformadas(grupo.getSenha(), grupo.getSenhaVerificadora())
                 && validarIntegrantesInformados(grupo.getIntegrantes());

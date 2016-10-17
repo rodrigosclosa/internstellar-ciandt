@@ -21,6 +21,8 @@ public class Grupo extends BaseEntity {
     @Ignore
     private Equipe equipe;
 
+    private String nome;
+
     @Index
     private String senha;
 
@@ -55,6 +57,14 @@ public class Grupo extends BaseEntity {
 
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public List<Integrante> getIntegrantes() {
