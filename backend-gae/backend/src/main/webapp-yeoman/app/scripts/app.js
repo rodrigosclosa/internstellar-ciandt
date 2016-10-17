@@ -36,6 +36,11 @@ angular
         controller: 'BhCtrl',
         controllerAs: 'bh'
       })
+      .when('/aval/:base', {
+        templateUrl: 'views/aval.html',
+        controller: 'AvalCtrl',
+        controllerAs: 'aval'
+      })
       .otherwise({
         redirectTo: '/'
       });
