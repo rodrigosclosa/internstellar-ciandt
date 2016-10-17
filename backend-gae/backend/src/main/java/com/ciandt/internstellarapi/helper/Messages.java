@@ -12,6 +12,7 @@ public class Messages {
 
     public static class GrupoMessages {
         public static String GRUPO_NAO_INFORMADO = "Grupo não informado";
+        public static String FOTO_GRUPO_NAO_INFORMADA = "Foto grupo não informada";
         public static String IDENTIFICADOR_EQUIPE_NAO_INFORMADO = "A equipe não foi informada";
         public static String IDENTIFICADOR_EQUIPE_NAO_VALIDO = "A equipe informada não é válida.";
         public static String SENHA_NAO_INFORMADA = "Senha não informada";

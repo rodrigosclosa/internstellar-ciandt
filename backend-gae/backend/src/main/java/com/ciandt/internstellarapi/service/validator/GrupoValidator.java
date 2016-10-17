@@ -6,6 +6,7 @@ import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.EquipeService;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.repackaged.com.google.common.base.StringUtil;
 
 import java.util.List;
@@ -25,6 +26,13 @@ public class GrupoValidator {
     private boolean validarGrupoInformado(Grupo grupo) throws BadRequestException {
         if (grupo == null) {
             throw new BadRequestException(Messages.GrupoMessages.GRUPO_NAO_INFORMADO);
+        }
+        return Boolean.TRUE;
+    }
+
+    private boolean validarFotoInformada(Text foto) throws BadRequestException {
+        if (foto == null) {
+            throw new BadRequestException(Messages.GrupoMessages.FOTO_GRUPO_NAO_INFORMADA);
         }
         return Boolean.TRUE;
     }
@@ -72,6 +80,7 @@ public class GrupoValidator {
 
     public boolean validarGrupo(Grupo grupo) throws BadRequestException {
         return validarGrupoInformado(grupo)
+                && validarFotoInformada(grupo.getFotoEquipe())
                 && validarIdEquipeInformado(grupo.getIdEquipe())
                 && validarSenhasInformadas(grupo.getSenha(), grupo.getSenhaVerificadora())
                 && validarIntegrantesInformados(grupo.getIntegrantes());
