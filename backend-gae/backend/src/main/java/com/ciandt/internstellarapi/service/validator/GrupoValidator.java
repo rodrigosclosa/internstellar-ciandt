@@ -88,7 +88,7 @@ public class GrupoValidator {
     public boolean validarGrupo(Grupo grupo) throws BadRequestException {
         return validarGrupoInformado(grupo)
                 && validarFotoInformada(grupo.getFotoEquipe())
-                %&& validarNomeInformado(grupo.getNome())
+                && validarNomeInformado(grupo.getNome())
                 && validarIdEquipeInformado(grupo.getIdEquipe())
                 && validarSenhasInformadas(grupo.getSenha(), grupo.getSenhaVerificadora())
                 && validarIntegrantesInformados(grupo.getIntegrantes());

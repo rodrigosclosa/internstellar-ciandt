@@ -2,9 +2,11 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.GrupoDao;
 import com.ciandt.internstellarapi.dao.IntegranteDao;
+import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Integrante;
 import com.ciandt.internstellarapi.helper.AuthHelper;
+import com.ciandt.internstellarapi.helper.EntityHelper;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.GrupoValidator;
 import com.google.api.server.spi.response.BadRequestException;
@@ -24,16 +26,16 @@ public class GrupoService {
 
     private GrupoDao grupoDao;
     private IntegranteDao integranteDao;
-
     private GrupoValidator grupoValidator;
-
     private IntegranteService integranteService;
+    private EquipeService equipeService;
 
     public GrupoService() {
         grupoDao = new GrupoDao();
         grupoValidator = new GrupoValidator();
         integranteService = new IntegranteService();
         integranteDao = new IntegranteDao();
+        equipeService = new EquipeService();
     }
 
     public List<Grupo> list() {
@@ -42,6 +44,18 @@ public class GrupoService {
         fetchIntegrantes(retorno);
 
         return retorno;
+    }
+
+    public List<Grupo> listByCidade(String cidade) {
+        List<Grupo> grupos = null;
+        List<Equipe> equipesBase = equipeService.findByBase(cidade);
+
+        if(equipesBase != null) {
+            List<Long> idEquipes = EntityHelper.extracIds(equipesBase);
+            grupos = findByEquipes(idEquipes);
+        }
+
+        return grupos;
     }
 
     private void fetchIntegrantes(Collection<Grupo> retorno) {
