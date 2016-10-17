@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "com-badrit-base64": {
+            "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
+        },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         },
@@ -38,9 +41,6 @@
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         },
         "onesignal-cordova-plugin": {
-            "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
-        },
-        "com-badrit-base64": {
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         }
     },

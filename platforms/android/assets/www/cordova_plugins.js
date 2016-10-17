@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "id": "com-badrit-base64.Base64",
+        "file": "plugins/com-badrit-base64/www/Base64.js",
+        "pluginId": "com-badrit-base64",
+        "clobbers": [
+            "navigator.Base64"
+        ]
+    },
+    {
         "id": "cordova-plugin-camera.Camera",
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "pluginId": "cordova-plugin-camera",
@@ -120,19 +128,12 @@ module.exports = [
         "clobbers": [
             "OneSignal"
         ]
-    },
-    {
-        "id": "com-badrit-base64.Base64",
-        "file": "plugins/com-badrit-base64/www/Base64.js",
-        "pluginId": "com-badrit-base64",
-        "clobbers": [
-            "navigator.Base64"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "com-badrit-base64": "0.2.0",
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-camera": "2.3.0",
     "cordova-plugin-console": "1.0.4",
@@ -144,8 +145,7 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.0",
     "cordova-plugin-whitelist": "1.3.0",
     "ionic-plugin-keyboard": "2.2.1",
-    "onesignal-cordova-plugin": "2.0.4",
-    "com-badrit-base64": "0.2.0"
+    "onesignal-cordova-plugin": "2.0.4"
 };
 // BOTTOM OF METADATA
 });
