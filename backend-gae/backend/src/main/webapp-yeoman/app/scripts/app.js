@@ -26,15 +26,10 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/campinas', {
-        templateUrl: 'views/campinas.html',
-        controller: 'CampinasCtrl',
-        controllerAs: 'campinas'
-      })
-      .when('/bh', {
-        templateUrl: 'views/bh.html',
-        controller: 'BhCtrl',
-        controllerAs: 'bh'
+      .when('/dash/:base', {
+        templateUrl: 'views/dash.html',
+        controller: 'DashCtrl',
+        controllerAs: 'dash'
       })
       .when('/aval/:base', {
         templateUrl: 'views/aval.html',
