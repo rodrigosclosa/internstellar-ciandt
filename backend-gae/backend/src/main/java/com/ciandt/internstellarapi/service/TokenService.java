@@ -99,4 +99,11 @@ public class TokenService {
         return token;
     }
 
+    public void validarTokenGrupo(Token token, Long idGrupo) throws UnauthorizedException {
+        if (!token.getIdGrupo().equals(idGrupo)) {
+            throw new UnauthorizedException(
+                    Messages.TokenMessages.TOKEN_NAO_PERMITE_OPERACAO_PARA_O_GRUPO);
+        }
+    }
+
 }

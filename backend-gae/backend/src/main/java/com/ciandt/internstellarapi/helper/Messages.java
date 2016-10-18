@@ -57,6 +57,10 @@ public class Messages {
         public static String PLANETA_DEVE_SER_INFORMADO = "Um planeta deve ser informado para a pergunta";
         public static String PLANETA_INFORMADO_INVALIDO = "O planeta informado é inválido";
         public static String OPCAO_CORRETA_NAO_INFORMADA = "A opção correta não foi informada";
+        public static String PRIMEIRA_PERGUNTA_NAO_REQUISITADA = "Primeira pergunta não requisitada";
+        public static String GRUPO_NAO_INFORMADO = "O grupo não foi informado";
+        public static String GRUPO_INVALIDO = "O grupo informado não é válido";
+
 
     }
 
@@ -69,7 +73,7 @@ public class Messages {
         public static String TOKEN_NAO_INFORMADO = "Token não informado";
         public static String TOKEN_NAO_ENCONTRADO = "Token não encontrado";
         public static String ACESSO_NEGADO_TOKEN_NAO_ENCONTRADO_INVALIDO = "Acesso negado. Token não encontrado ou inválido.";
-
+        public static String TOKEN_NAO_PERMITE_OPERACAO_PARA_O_GRUPO = "Token não permite operação para o grupo";
 
     }
 

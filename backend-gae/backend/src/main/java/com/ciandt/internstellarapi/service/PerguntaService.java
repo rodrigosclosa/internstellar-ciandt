@@ -1,10 +1,13 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.PerguntaDao;
+import com.ciandt.internstellarapi.dao.PerguntaGrupoDao;
 import com.ciandt.internstellarapi.dao.PlanetaDao;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.PerguntaGrupo;
 import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Planeta;
+import com.ciandt.internstellarapi.helper.EntityHelper;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.PerguntaValidator;
 import com.google.api.server.spi.response.BadRequestException;
@@ -25,9 +28,12 @@ import java.util.UUID;
 public class PerguntaService {
 
     private static final int CODIGO_INICIAL_PERGUNTA = 1;
-
+    private static final int FIRST_ITEM = 0;
+    private static final int DE_PARA_INDEX_QUANTIDADE = 1;
+    private static final int INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS = 1;
     private PerguntaDao perguntaDao;
     private PlanetaDao planetaDao;
+    private PerguntaGrupoDao perguntaGrupoDao;
 
     private PerguntaValidator perguntaValidator;
 
@@ -35,6 +41,7 @@ public class PerguntaService {
         perguntaDao = new PerguntaDao();
         perguntaValidator = new PerguntaValidator();
         planetaDao = new PlanetaDao();
+        perguntaGrupoDao = new PerguntaGrupoDao();
     }
 
     public List<Pergunta> list() {
@@ -58,7 +65,7 @@ public class PerguntaService {
 
         Planeta pl = planetaDao.getByKey(item.getPlanetaId());
 
-        if(pl != null) {
+        if (pl != null) {
             item.setPlaneta(pl);
         }
 
@@ -78,15 +85,15 @@ public class PerguntaService {
         configurarPerguntasToPublic(perguntasResult);
 
         fetchPlaneta(perguntasResult);
-
+        EntityHelper.orderEntities(perguntasResult);
         return perguntasResult;
     }
 
     private void fetchPlaneta(List<Pergunta> perguntasResult) {
-        for (Pergunta P: perguntasResult) {
+        for (Pergunta P : perguntasResult) {
             Planeta pl = planetaDao.getByKey(P.getPlanetaId());
 
-            if(pl != null) {
+            if (pl != null) {
                 P.setPlaneta(pl);
             }
         }
@@ -152,6 +159,67 @@ public class PerguntaService {
         perguntaDao.update(item);
 
         return item;
+    }
+
+    public Pergunta nextPergunta(Long idGrupo, Long idPlaneta) throws NotFoundException, BadRequestException {
+        perguntaValidator.validarAcaoPergunta(idGrupo, idPlaneta);
+        Pergunta perguntaToReturn;
+        PerguntaGrupo perguntaGrupo = perguntaGrupoDao.findByPlanetaGrupo(idPlaneta, idGrupo);
+
+        if (perguntaGrupo == null) {
+            List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
+            perguntaToReturn = perguntasPlaneta.get(FIRST_ITEM);
+            criarPerguntaGrupo(idGrupo, idPlaneta, perguntaToReturn.getId());
+        } else {
+            perguntaToReturn = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+        }
+        return perguntaToReturn;
+    }
+
+    public Pergunta jumpPergunta(Long idGrupo, Long idPlaneta) throws NotFoundException, BadRequestException {
+        perguntaValidator.validarAcaoPergunta(idGrupo, idPlaneta);
+        PerguntaGrupo perguntaGrupo = perguntaGrupoDao.findByPlanetaGrupo(idPlaneta, idGrupo);
+        if (perguntaGrupo == null) {
+            throw new BadRequestException(Messages.PerguntaMessages.PRIMEIRA_PERGUNTA_NAO_REQUISITADA);
+        }
+        Pergunta perguntaAtual = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+
+        List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
+        Pergunta perguntaResult = selectNextPergunta(perguntaAtual, perguntasPlaneta);
+        PerguntaGrupo perguntaGrupoJaExistente =
+                perguntaGrupoDao.findByPlanetaGrupoPergunta(
+                        idPlaneta, idGrupo, perguntaResult.getId());
+        if (perguntaGrupoJaExistente == null) {
+            criarPerguntaGrupo(idGrupo, idPlaneta, perguntaResult.getId());
+        } else {
+            perguntaGrupoJaExistente.setQuantidadeTentativas(
+                    perguntaGrupoJaExistente.getQuantidadeTentativas()
+                            + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
+        }
+        return perguntaResult;
+    }
+
+
+
+    private Pergunta selectNextPergunta(Pergunta pergunta, List<Pergunta> perguntas) {
+        Pergunta perguntaResult;
+        int indexOf = perguntas.indexOf(pergunta);
+        if ((indexOf + DE_PARA_INDEX_QUANTIDADE) == perguntas.size()) {
+            perguntaResult = perguntas.get(FIRST_ITEM);
+        } else {
+            perguntaResult = perguntas.get(indexOf + DE_PARA_INDEX_QUANTIDADE);
+        }
+        return perguntaResult;
+    }
+
+    private PerguntaGrupo criarPerguntaGrupo(Long idGrupo, Long idPlaneta, Long idPergunta) {
+        PerguntaGrupo perguntaGrupo = new PerguntaGrupo();
+        perguntaGrupo.setIdGrupo(idGrupo);
+        perguntaGrupo.setIdPlaneta(idPlaneta);
+        perguntaGrupo.setIdPergunta(idPergunta);
+        perguntaGrupo.setQuantidadeTentativas(0);
+        perguntaGrupoDao.insert(perguntaGrupo);
+        return perguntaGrupo;
     }
 
     private void configPergunta(Pergunta pergunta) {

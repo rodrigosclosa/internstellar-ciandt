@@ -5,6 +5,7 @@ import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Integrante;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.PerguntaGrupo;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.entity.Token;
@@ -26,6 +27,7 @@ public class OfyService {
         ObjectifyService.register(Token.class);
         ObjectifyService.register(Resposta.class);
         ObjectifyService.register(Avaliacao.class);
+        ObjectifyService.register(PerguntaGrupo.class);
     }
 
     public static Objectify ofy() {

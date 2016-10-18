@@ -3,6 +3,7 @@ package com.ciandt.internstellarapi.endpoint;
 
 import com.ciandt.internstellarapi.entity.Avaliacao;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.Token;
 import com.ciandt.internstellarapi.service.PerguntaService;
 import com.ciandt.internstellarapi.service.TokenService;
 import com.google.api.server.spi.config.Api;
@@ -45,7 +46,7 @@ public class PerguntaEndpoint {
     @ApiMethod(name = "getPerguntas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
     public List<Pergunta> getPerguntas(@Nullable @Named("idPLaneta") Long idPlaneta,
                                        @Named("token") String token) throws NotFoundException, UnauthorizedException {
-        tokenService.getByToken(token);
+        tokenService.validarTokenAdministrador(token);
         if (idPlaneta == null) {
             return perguntaService.list();
         } else {
@@ -65,5 +66,25 @@ public class PerguntaEndpoint {
             throws BadRequestException, UnauthorizedException {
         tokenService.validarTokenAdministrador(token);
         return perguntaService.insert(item);
+    }
+
+    @ApiMethod(name = "getProximaPergunta", path = "getNext", httpMethod = ApiMethod.HttpMethod.GET)
+    public Pergunta nextPergunta(
+            @Named("token") String token,
+            @Named("grupoId") Long idGrupo,
+            @Named("planetaId") Long idPlaneta) throws UnauthorizedException, NotFoundException, BadRequestException {
+        Token tokenResult = tokenService.getByToken(token);
+        tokenService.validarTokenGrupo(tokenResult, idGrupo);
+        return perguntaService.nextPergunta(idGrupo, idPlaneta);
+    }
+
+    @ApiMethod(name = "jumpPergunta", path = "getJump", httpMethod = ApiMethod.HttpMethod.GET)
+    public Pergunta jumpPergunta(
+            @Named("token") String token,
+            @Named("grupoId") Long idGrupo,
+            @Named("planetaId") Long idPlaneta) throws UnauthorizedException, NotFoundException, BadRequestException {
+        Token tokenResult = tokenService.getByToken(token);
+        tokenService.validarTokenGrupo(tokenResult, idGrupo);
+        return perguntaService.jumpPergunta(idGrupo, idPlaneta);
     }
 }

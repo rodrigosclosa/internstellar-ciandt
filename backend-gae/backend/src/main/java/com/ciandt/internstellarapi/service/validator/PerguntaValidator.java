@@ -3,6 +3,7 @@ package com.ciandt.internstellarapi.service.validator;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.helper.Messages;
+import com.ciandt.internstellarapi.service.GrupoService;
 import com.ciandt.internstellarapi.service.PlanetaService;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -19,8 +20,11 @@ public class PerguntaValidator {
 
     private PlanetaService planetaService;
 
+    private GrupoService grupoService;
+
     public PerguntaValidator() {
         planetaService = new PlanetaService();
+        grupoService = new GrupoService();
     }
 
     private Boolean validarPerguntaInformada(Pergunta pergunta) throws BadRequestException {
@@ -91,6 +95,21 @@ public class PerguntaValidator {
         return Boolean.TRUE;
     }
 
+    private Boolean validarGrupoInformado(Long idGrupo) throws BadRequestException {
+        if (idGrupo == null) {
+            throw new BadRequestException(Messages.PerguntaMessages.GRUPO_NAO_INFORMADO);
+        }
+        return Boolean.TRUE;
+    }
+
+    private Boolean validarGrupo(Long idGrupo) throws BadRequestException {
+        try {
+            grupoService.getById(idGrupo);
+        } catch (NotFoundException e) {
+            throw new BadRequestException(Messages.PerguntaMessages.GRUPO_INVALIDO);
+        }
+        return Boolean.TRUE;
+    }
 
     public Boolean validar(Pergunta pergunta) throws BadRequestException {
         return validarPerguntaInformada(pergunta)
@@ -102,5 +121,12 @@ public class PerguntaValidator {
                 && validarOpcoes(pergunta.getOpcoes())
                 && validarOpcaoCorretaInformada(pergunta.getOpcoes());
 
+    }
+
+    public Boolean validarAcaoPergunta(Long idGrupo, Long idPlaneta) throws BadRequestException {
+        return validarPlanetaInformado(idPlaneta)
+                && validarPlaneta(idPlaneta)
+                && validarGrupoInformado(idGrupo)
+                && validarGrupo(idGrupo);
     }
 }
