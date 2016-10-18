@@ -53,9 +53,34 @@ body{
   height: 320px;
 }
 
+.Azul {
+  color: #0624dd;
+}
+
+.Verde {
+  color: #78dd00
+}
+
+.icon-times {
+  height: 55px;
+}
+
 .fundo-branco {
   background-color: #fff;
   color: #062450;
+}
+
+.centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
 }
 
 .col-centered{

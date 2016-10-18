@@ -166,6 +166,7 @@ public class GrupoService {
 
         List<Grupo> grupos = grupoDao.listByFilter(filterByEquipes);
         fetchIntegrantes(grupos);
+        fetchEquipe(grupos);
         return grupos;
     }
 
