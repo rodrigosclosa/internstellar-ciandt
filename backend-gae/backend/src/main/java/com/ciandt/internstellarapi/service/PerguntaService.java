@@ -1,7 +1,6 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.PerguntaDao;
-import com.ciandt.internstellarapi.dao.PerguntaGrupoDao;
 import com.ciandt.internstellarapi.dao.PlanetaDao;
 import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.PerguntaGrupo;
@@ -12,9 +11,7 @@ import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.PerguntaValidator;
 import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -33,7 +30,7 @@ public class PerguntaService {
     private static final int INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS = 1;
     private PerguntaDao perguntaDao;
     private PlanetaDao planetaDao;
-    private PerguntaGrupoDao perguntaGrupoDao;
+    private PerguntaGrupoService perguntaGrupoService;
 
     private PerguntaValidator perguntaValidator;
 
@@ -41,7 +38,7 @@ public class PerguntaService {
         perguntaDao = new PerguntaDao();
         perguntaValidator = new PerguntaValidator();
         planetaDao = new PlanetaDao();
-        perguntaGrupoDao = new PerguntaGrupoDao();
+        perguntaGrupoService = new PerguntaGrupoService();
     }
 
     public List<Pergunta> list() {
@@ -163,15 +160,28 @@ public class PerguntaService {
 
     public Pergunta nextPergunta(Long idGrupo, Long idPlaneta) throws NotFoundException, BadRequestException {
         perguntaValidator.validarAcaoPergunta(idGrupo, idPlaneta);
-        Pergunta perguntaToReturn;
-        PerguntaGrupo perguntaGrupo = perguntaGrupoDao.findByPlanetaGrupo(idPlaneta, idGrupo);
-
-        if (perguntaGrupo == null) {
-            List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
+        Pergunta perguntaToReturn = null;
+        List<PerguntaGrupo> perguntasGrupo = perguntaGrupoService.findByPlanetaGrupo(idPlaneta, idGrupo);
+        List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
+        if (perguntasGrupo == null) {
             perguntaToReturn = perguntasPlaneta.get(FIRST_ITEM);
             criarPerguntaGrupo(idGrupo, idPlaneta, perguntaToReturn.getId());
         } else {
-            perguntaToReturn = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+            for (PerguntaGrupo perguntaGrupo : perguntasGrupo) {
+                if (!perguntaGrupo.getRespondida()) {
+                    perguntaToReturn = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+                    break;
+                }
+            }
+            if (perguntaToReturn == null) {
+                if (perguntasPlaneta.size() == perguntasGrupo.size()) {
+                    //todas as perguntas respondidas
+                    throw new BadRequestException(
+                            Messages.PerguntaMessages.TODAS_AS_PERGUNTAS_DESTE_PLANETA_FORAM_RESPONDIDAS);
+                } else {
+                    perguntaToReturn = jumpPergunta(idGrupo, idPlaneta);
+                }
+            }
         }
         configurarPerguntasToPublic(Collections.singletonList(perguntaToReturn));
         return perguntaToReturn;
@@ -179,20 +189,21 @@ public class PerguntaService {
 
     public Pergunta jumpPergunta(Long idGrupo, Long idPlaneta) throws NotFoundException, BadRequestException {
         perguntaValidator.validarAcaoPergunta(idGrupo, idPlaneta);
-        PerguntaGrupo perguntaGrupo = perguntaGrupoDao.findByPlanetaGrupo(idPlaneta, idGrupo);
-        if (perguntaGrupo == null) {
+        List<PerguntaGrupo> perguntasGrupo = perguntaGrupoService.findByPlanetaGrupo(idPlaneta, idGrupo);
+        if (perguntasGrupo == null) {
             throw new BadRequestException(Messages.PerguntaMessages.PRIMEIRA_PERGUNTA_NAO_REQUISITADA);
         }
+        PerguntaGrupo perguntaGrupo = perguntasGrupo.get(FIRST_ITEM);
         perguntaGrupo.setQuantidadeTentativas(perguntaGrupo.getQuantidadeTentativas()
                 + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
-        perguntaGrupoDao.update(perguntaGrupo);
+        perguntaGrupoService.update(perguntaGrupo);
 
         Pergunta perguntaAtual = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
 
         List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
         Pergunta perguntaResult = selectNextPergunta(perguntaAtual, perguntasPlaneta);
         PerguntaGrupo perguntaGrupoJaExistente =
-                perguntaGrupoDao.findByPlanetaGrupoPergunta(
+                perguntaGrupoService.findByPlanetaGrupoPergunta(
                         idPlaneta, idGrupo, perguntaResult.getId());
         if (perguntaGrupoJaExistente == null) {
             criarPerguntaGrupo(idGrupo, idPlaneta, perguntaResult.getId());
@@ -223,7 +234,8 @@ public class PerguntaService {
         perguntaGrupo.setIdPlaneta(idPlaneta);
         perguntaGrupo.setIdPergunta(idPergunta);
         perguntaGrupo.setQuantidadeTentativas(0);
-        perguntaGrupoDao.insert(perguntaGrupo);
+        perguntaGrupo.setRespondida(Boolean.FALSE);
+        perguntaGrupoService.salvar(perguntaGrupo);
         return perguntaGrupo;
     }
 

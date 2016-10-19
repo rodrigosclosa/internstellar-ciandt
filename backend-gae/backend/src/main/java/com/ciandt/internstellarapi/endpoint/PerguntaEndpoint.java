@@ -87,4 +87,11 @@ public class PerguntaEndpoint {
         tokenService.validarTokenGrupo(tokenResult, idGrupo);
         return perguntaService.jumpPergunta(idGrupo, idPlaneta);
     }
+
+    @ApiMethod(name = "deletePergunta", path = "delete/{idPergunta}", httpMethod = ApiMethod.HttpMethod.DELETE)
+    public void remove(@Named("tokenAdm") String tokenAdm, @Named("idPergunta") Long id)
+            throws UnauthorizedException, NotFoundException {
+        tokenService.validarTokenAdministrador(tokenAdm);
+        perguntaService.remove(id);
+    }
 }

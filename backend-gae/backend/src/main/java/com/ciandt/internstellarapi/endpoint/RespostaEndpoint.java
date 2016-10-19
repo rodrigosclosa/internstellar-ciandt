@@ -7,6 +7,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.BadRequestException;
+import com.google.api.server.spi.response.InternalServerErrorException;
 import com.google.api.server.spi.response.UnauthorizedException;
 
 /**
@@ -31,7 +32,7 @@ public class RespostaEndpoint {
     }
 
     @ApiMethod(name = "insertResposta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Resposta insertResposta(Resposta item) throws BadRequestException, UnauthorizedException {
+    public Resposta insertResposta(Resposta item) throws BadRequestException, UnauthorizedException, InternalServerErrorException {
         return respostaService.insert(item);
     }
 }

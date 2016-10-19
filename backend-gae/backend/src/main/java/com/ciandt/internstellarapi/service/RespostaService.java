@@ -2,15 +2,18 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.GrupoDao;
 import com.ciandt.internstellarapi.dao.PerguntaDao;
+import com.ciandt.internstellarapi.dao.PerguntaGrupoDao;
 import com.ciandt.internstellarapi.dao.RespostaDao;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Pergunta;
+import com.ciandt.internstellarapi.entity.PerguntaGrupo;
 import com.ciandt.internstellarapi.entity.PerguntaOpcao;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.ciandt.internstellarapi.service.validator.RespostaValidator;
 import com.ciandt.internstellarapi.util.DataControlHelper;
 import com.google.api.server.spi.response.BadRequestException;
+import com.google.api.server.spi.response.InternalServerErrorException;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Query;
 
@@ -26,6 +29,7 @@ public class RespostaService {
     private RespostaDao respostaDao;
     private GrupoDao grupoDao;
     private PerguntaDao perguntaDao;
+    private PerguntaGrupoService perguntaGrupoService;
 
     private RespostaValidator respostaValidator;
 
@@ -34,6 +38,7 @@ public class RespostaService {
         respostaValidator = new RespostaValidator();
         grupoDao = new GrupoDao();
         perguntaDao = new PerguntaDao();
+        perguntaGrupoService = new PerguntaGrupoService();
     }
 
     public List<Resposta> list() {
@@ -60,13 +65,21 @@ public class RespostaService {
         }
     }
 
-    public Resposta insert(Resposta resposta) throws UnauthorizedException, BadRequestException {
+    public Resposta insert(Resposta resposta) throws UnauthorizedException, BadRequestException, InternalServerErrorException {
         respostaValidator.validar(resposta);
         if (respostaJaEnviada(resposta)) {
             throw new BadRequestException(Messages.RespostaMessages.RESPOSTA_JA_ENVIADA);
         }
-
+        Pergunta pergunta = perguntaDao.getByKey(resposta.getIdPergunta());
         DataControlHelper.PreencherDataComHoraAtual(resposta);
+        PerguntaGrupo perguntaGrupo = perguntaGrupoService.findByPlanetaGrupoPergunta(pergunta.getPlanetaId(),
+                resposta.getIdGrupo(),
+                resposta.getIdPergunta());
+        if (perguntaGrupo == null) {
+            throw new InternalServerErrorException(Messages.GenericMessages.ERRO_NAO_ESPERADO);
+        }
+        perguntaGrupo.setRespondida(Boolean.TRUE);
+        perguntaGrupoService.salvar(perguntaGrupo);
         respostaDao.save(resposta);
 
         return resposta;

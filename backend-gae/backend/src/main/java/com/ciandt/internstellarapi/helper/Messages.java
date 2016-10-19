@@ -60,6 +60,7 @@ public class Messages {
         public static String PRIMEIRA_PERGUNTA_NAO_REQUISITADA = "Primeira pergunta não requisitada";
         public static String GRUPO_NAO_INFORMADO = "O grupo não foi informado";
         public static String GRUPO_INVALIDO = "O grupo informado não é válido";
+        public static String TODAS_AS_PERGUNTAS_DESTE_PLANETA_FORAM_RESPONDIDAS = "Todos as perguntas deste planeta foram respondidas";
 
 
     }
