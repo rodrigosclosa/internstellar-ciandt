@@ -16,7 +16,8 @@ angular.module('app.services')
                 var retorno = RetornoServicos.retorno();
 
                 //Aqui é feita uma chamada na API passando seu endereço base e o caminho da chamada do EndPoint completo
-                $http.get(urlBase + 'api/v1/list')
+                //Este caminho pode ser olhado no API Explorer do projeto
+                $http.get(urlBase + 'api/v1/equipes/get')
                     .success(function (response) {
                         //Indico que deu sucesso na chamada
                         retorno.success = true;
