@@ -20,6 +20,9 @@ public class PerguntaGrupo extends BaseEntity {
 
     private Integer quantidadeTentativas;
 
+    @Index
+    private Boolean respondida;
+
     public Long getIdPergunta() {
         return idPergunta;
     }
@@ -50,5 +53,13 @@ public class PerguntaGrupo extends BaseEntity {
 
     public void setQuantidadeTentativas(Integer quantidadeTentativas) {
         this.quantidadeTentativas = quantidadeTentativas;
+    }
+
+    public Boolean getRespondida() {
+        return respondida;
+    }
+
+    public void setRespondida(Boolean respondida) {
+        this.respondida = respondida;
     }
 }
