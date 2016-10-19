@@ -10,7 +10,7 @@
         <max-idle-instances>2</max-idle-instances>
         <min-pending-latency>150ms</min-pending-latency>
         <max-pending-latency>800ms</max-pending-latency>
-        <max-concurrent-requests>200</max-concurrent-requests>
+        <max-concurrent-requests>100</max-concurrent-requests>
     </automatic-scaling>
 
     <system-properties>
