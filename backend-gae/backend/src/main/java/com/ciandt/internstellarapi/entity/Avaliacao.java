@@ -16,6 +16,7 @@ public class Avaliacao extends BaseEntity implements DataControl {
 
     private String loginSensei;
 
+    @Index
     private Integer desafio;
 
     private String notes;

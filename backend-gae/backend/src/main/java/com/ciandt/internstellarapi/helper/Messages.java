@@ -94,9 +94,10 @@ public class Messages {
 
     public static class AvaliacaoMessages {
         public static final String AVALIACAO_NAO_ENCONTRADA = "Avaliação não encontrada.";
-        public static final String GRUPO_NAO_INFORMADO = "O grupo não foi informado";
-        public static final String DESAFIO_NAO_INFORMADO = "O desafio não foi informado";
-        public static final String GRUPO_INFORMADO_INVALIDO = "O grupo informado não é válido";
+        public static final String GRUPO_NAO_INFORMADO = "O grupo não foi informado.";
+        public static final String DESAFIO_NAO_INFORMADO = "O desafio não foi informado.";
+        public static final String GRUPO_INFORMADO_INVALIDO = "O grupo informado não é válido.";
+        public static final String AVALIACAO_JA_ENVIADA_PARA_O_GRUPO = "Avaliação já enviada para o grupo.";
     }
 
 
