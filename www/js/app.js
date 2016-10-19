@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'firebase', 'app.config', 'app.routes', 'app.controllers', 'app.services', 'app.directives'])
+angular.module('app', ['ionic', 'ngCordova', 'app.config', 'app.routes', 'app.controllers', 'app.services', 'app.directives'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -24,10 +24,10 @@ angular.module('app', ['ionic', 'firebase', 'app.config', 'app.routes', 'app.con
         console.log('Abriu uma notificação: ' + JSON.stringify(jsonData));
       };
 
-      window.plugins.OneSignal.init(
-        "5d1aa582-7c6d-4b8d-96fd-4dacaac12ca5",
-        { googleProjectNumber: "824247522381" },
-        notificationOpenedCallback);
+      window.plugins.OneSignal
+        .startInit("5d1aa582-7c6d-4b8d-96fd-4dacaac12ca5", "824247522381")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
 
       // Show an alert box if a notification comes in when the user is in your app.
       window.plugins.OneSignal.enableInAppAlertNotification(true);

@@ -1,0 +1,35 @@
+<ion-view view-title="Grupo">
+  <ion-content class="padding">
+    <div class="list list-inset">
+      <form>
+        <label class="item item-input item-stacked-label centro">
+          <span class="input-label">Foto do Grupo</span>
+          <div id="camera-button-wrapper" class="camera-button-wrapper" ng-click="tirarFoto()">
+              <img id="img-camera" border="0" ng-src="{{grupo.fotoEquipe.value}}" ng-show="grupo.fotoEquipe.value !== undefined || grupo.fotoEquipe.value !== ''" />
+              <input type="hidden" id="image-path" ng-model="grupo.fotoEquipe.value" />
+          </div>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">Equipe</div>
+          <select ng-options="equipe.id as equipe.nome + ' - ' + equipe.cor + ' - ' + equipe.base for equipe in equipes track by equipe.id" ng-model="grupo.idEquipe"
+						required></select>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Nome do grupo</span>
+          <input id="nome" type="text" placeholder="Nome do Grupo" ng-model="grupo.nome">
+        </label>
+
+        <!-- 
+            Você vai precisar continuar este formulário. 
+            Olhando na documentação do Ionic, na parte de CSS Components você vai encontrar tudo.  
+        -->
+
+
+        <button id="btn-gravar" class="button button-full button-positive" ng-disabled="{{botaoDisabled}}">
+          <i class="icon ion-plus"></i>&nbsp;&nbsp;Gravar
+        </button>
+
+      </form>
+    </div>
+  </ion-content>
+</ion-view>
