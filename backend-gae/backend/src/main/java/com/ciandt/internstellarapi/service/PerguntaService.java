@@ -173,6 +173,7 @@ public class PerguntaService {
         } else {
             perguntaToReturn = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
         }
+        configurarPerguntasToPublic(Collections.singletonList(perguntaToReturn));
         return perguntaToReturn;
     }
 
@@ -182,6 +183,10 @@ public class PerguntaService {
         if (perguntaGrupo == null) {
             throw new BadRequestException(Messages.PerguntaMessages.PRIMEIRA_PERGUNTA_NAO_REQUISITADA);
         }
+        perguntaGrupo.setQuantidadeTentativas(perguntaGrupo.getQuantidadeTentativas()
+                + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
+        perguntaGrupoDao.update(perguntaGrupo);
+
         Pergunta perguntaAtual = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
 
         List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
@@ -196,9 +201,9 @@ public class PerguntaService {
                     perguntaGrupoJaExistente.getQuantidadeTentativas()
                             + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
         }
+        configurarPerguntasToPublic(Collections.singletonList(perguntaResult));
         return perguntaResult;
     }
-
 
 
     private Pergunta selectNextPergunta(Pergunta pergunta, List<Pergunta> perguntas) {

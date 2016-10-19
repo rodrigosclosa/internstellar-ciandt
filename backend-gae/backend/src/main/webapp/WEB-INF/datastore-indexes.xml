@@ -7,4 +7,15 @@
         <property name="base" direction="asc"/>
     </datastore-index>
 
+    <datastore-index kind="PerguntaGrupo" ancestor="false" source="manual">
+        <property name="idPlaneta" direction="asc"/>
+        <property name="idGrupo" direction="asc"/>
+    </datastore-index>
+
+    <datastore-index kind="PerguntaGrupo" ancestor="false" source="manual">
+        <property name="idPlaneta" direction="asc"/>
+        <property name="idGrupo" direction="asc"/>
+        <property name="idPergunta" direction="asc"/>
+    </datastore-index>
+
 </datastore-indexes>

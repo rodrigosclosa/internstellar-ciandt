@@ -14,7 +14,9 @@ import java.util.List;
 
 public class PerguntaGrupoDao extends GenericDao<PerguntaGrupo> {
 
-    private int FIRST_LIST_ITEM = 0;
+    private static final int FIRST_LIST_ITEM = 0;
+
+    private static final int IS_EQUAL = 0;
 
     public PerguntaGrupo findByPlanetaGrupo(Long idPlaneta, Long idGrupo) {
         Query.Filter filterPlaneta = new Query.FilterPredicate("idPlaneta", Query.FilterOperator.EQUAL, idPlaneta);
@@ -51,10 +53,13 @@ public class PerguntaGrupoDao extends GenericDao<PerguntaGrupo> {
     }
 
     private class ComparatorPerguntaGrupo implements Comparator<PerguntaGrupo> {
-
         @Override
         public int compare(PerguntaGrupo perguntaGrupo, PerguntaGrupo t1) {
-            return perguntaGrupo.getQuantidadeTentativas().compareTo(t1.getQuantidadeTentativas());
+            int tentativasCompare = perguntaGrupo.getQuantidadeTentativas().compareTo(t1.getQuantidadeTentativas());
+            if(tentativasCompare == IS_EQUAL){
+                return perguntaGrupo.getIdPergunta().compareTo(t1.getIdPergunta());
+            }
+            return tentativasCompare;
         }
     }
 }

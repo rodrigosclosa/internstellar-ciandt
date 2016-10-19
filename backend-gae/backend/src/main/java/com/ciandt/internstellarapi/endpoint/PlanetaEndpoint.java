@@ -62,7 +62,7 @@ public class PlanetaEndpoint {
     }
 
     @ApiMethod(name = "insertPlaneta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Planeta insertPlaneta(@Named("token") String token, Planeta item) throws BadRequestException, UnauthorizedException {
+    public Planeta insertPlaneta(@Named("tokenAdm") String token, Planeta item) throws BadRequestException, UnauthorizedException {
         tokenService.validarTokenAdministrador(token);
         return planetaService.insert(item);
     }
