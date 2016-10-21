@@ -17,46 +17,46 @@ angular.module('app.routes', [])
 
       // Each tab has its own nav history stack:
 
-      .state('tab.dash', {
-        url: '/dash',
+      .state('tab.grupo', {
+        url: '/grupo',
         views: {
-          'tab-dash': {
-            templateUrl: 'templates/tab-dash.html',
-            controller: 'DashCtrl'
+          'grupo': {
+            templateUrl: 'templates/grupo.html',
+            controller: 'GrupoController'
           }
         }
       })
 
-      .state('tab.chats', {
-        url: '/chats',
+      .state('tab.planetas', {
+        url: '/planetas',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
+          'planetas': {
+            templateUrl: 'templates/planetas.html',
+            controller: 'PlanetasController'
           }
         }
       })
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
+      .state('tab.planetas-perguntas', {
+        url: '/planetas/:planetaId',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
+          'planetas': {
+            templateUrl: 'templates/planetas-perguntas.html',
+            controller: 'PlanetasPerguntasController'
           }
         }
       })
 
-      .state('tab.account', {
-        url: '/account',
+      .state('tab.login', {
+        url: '/login',
         views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
+          'login': {
+            templateUrl: 'templates/login.html',
+            controller: 'LoginController'
           }
         }
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dash');
+    $urlRouterProvider.otherwise('/tab/grupo');
 
   });

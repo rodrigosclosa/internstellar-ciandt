@@ -73,4 +73,11 @@
     <preference name="FadeSplashScreenDuration" value="2000" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="SplashScreen" value="screen" />
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="ImageResizePlugin">
+        <param name="ios-package" value="ImageResize" />
+    </feature>
 </widget>

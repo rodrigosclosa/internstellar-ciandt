@@ -50,6 +50,12 @@
 		C298E3D90EDA46CDA0B87583 /* OneSignalHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CA9E88C8604A24994ED3A0 /* OneSignalHelper.m */; };
 		C9E053EE2C7B4FEEA6F7C6AC /* OneSignalWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6522B2CFC2254ED88C13D9B8 /* OneSignalWebView.m */; };
 		B2ADA8492CEC4211ADAAD477 /* OneSignalPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 869F0866C7D549C395362518 /* OneSignalPush.m */; };
+		5112E598AD314317AFFDD541 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D303C93679CE4AAEA2AC8293 /* CDVFile.m */; };
+		D7C19E88BD1E429290403802 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 869D2EA176E4474C8A70BE2F /* CDVLocalFilesystem.m */; };
+		9F125F604C814658A25D3A45 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F116F3926E3B49DBBCC0FD2E /* CDVAssetLibraryFilesystem.m */; };
+		9D3A526D30E940B590C0C6D4 /* ImageResize.m in Sources */ = {isa = PBXBuildFile; fileRef = E856D967BA194C949CEBFE9C /* ImageResize.m */; };
+		733336E67B624F778D2DB1FF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1567F9F8987D4DB1911D7B52 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		44BB037050AC40D7AC97E30C /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = D26B457334064F60993ED333 /* UIImage+Scale.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +158,18 @@
 		B65F3CA1383B4A42BD8AD6FF /* OneSignalTracker.h */ = {isa = PBXFileReference; name = "OneSignalTracker.h"; path = "onesignal-cordova-plugin/OneSignalTracker.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		665C799196E04368BDCD8098 /* OneSignalWebView.h */ = {isa = PBXFileReference; name = "OneSignalWebView.h"; path = "onesignal-cordova-plugin/OneSignalWebView.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		C435153C30B949A1B1175538 /* OneSignal-Prefix.pch */ = {isa = PBXFileReference; name = "OneSignal-Prefix.pch"; path = "onesignal-cordova-plugin/OneSignal-Prefix.pch"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D303C93679CE4AAEA2AC8293 /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		869D2EA176E4474C8A70BE2F /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		F116F3926E3B49DBBCC0FD2E /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		95335ED1DF2A446F92E0C1B6 /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4499AEC17186483AA5F1AC89 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C21AC29511C54E5F8F3BE174 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		E856D967BA194C949CEBFE9C /* ImageResize.m */ = {isa = PBXFileReference; name = "ImageResize.m"; path = "cordova-plugin-image-resizer/ImageResize.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		1567F9F8987D4DB1911D7B52 /* NSData+Base64.m */ = {isa = PBXFileReference; name = "NSData+Base64.m"; path = "cordova-plugin-image-resizer/NSData+Base64.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		D26B457334064F60993ED333 /* UIImage+Scale.m */ = {isa = PBXFileReference; name = "UIImage+Scale.m"; path = "cordova-plugin-image-resizer/UIImage+Scale.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		388DAD64BFAC4F96967BC33B /* ImageResize.h */ = {isa = PBXFileReference; name = "ImageResize.h"; path = "cordova-plugin-image-resizer/ImageResize.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4E1F2EA21E8944C3BD2D219E /* NSData+Base64.h */ = {isa = PBXFileReference; name = "NSData+Base64.h"; path = "cordova-plugin-image-resizer/NSData+Base64.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		018FA6DB65C94A698450FBE8 /* UIImage+Scale.h */ = {isa = PBXFileReference; name = "UIImage+Scale.h"; path = "cordova-plugin-image-resizer/UIImage+Scale.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +341,18 @@
 				B65F3CA1383B4A42BD8AD6FF /* OneSignalTracker.h */,
 				665C799196E04368BDCD8098 /* OneSignalWebView.h */,
 				C435153C30B949A1B1175538 /* OneSignal-Prefix.pch */,
+				D303C93679CE4AAEA2AC8293 /* CDVFile.m */,
+				869D2EA176E4474C8A70BE2F /* CDVLocalFilesystem.m */,
+				F116F3926E3B49DBBCC0FD2E /* CDVAssetLibraryFilesystem.m */,
+				95335ED1DF2A446F92E0C1B6 /* CDVFile.h */,
+				4499AEC17186483AA5F1AC89 /* CDVLocalFilesystem.h */,
+				C21AC29511C54E5F8F3BE174 /* CDVAssetLibraryFilesystem.h */,
+				E856D967BA194C949CEBFE9C /* ImageResize.m */,
+				1567F9F8987D4DB1911D7B52 /* NSData+Base64.m */,
+				D26B457334064F60993ED333 /* UIImage+Scale.m */,
+				388DAD64BFAC4F96967BC33B /* ImageResize.h */,
+				4E1F2EA21E8944C3BD2D219E /* NSData+Base64.h */,
+				018FA6DB65C94A698450FBE8 /* UIImage+Scale.h */,
 			);
 			name = Plugins;
 			path = "Internstellar CI\&T/Plugins";
@@ -463,6 +493,12 @@
 				C298E3D90EDA46CDA0B87583 /* OneSignalHelper.m in Sources */,
 				C9E053EE2C7B4FEEA6F7C6AC /* OneSignalWebView.m in Sources */,
 				B2ADA8492CEC4211ADAAD477 /* OneSignalPush.m in Sources */,
+				5112E598AD314317AFFDD541 /* CDVFile.m in Sources */,
+				D7C19E88BD1E429290403802 /* CDVLocalFilesystem.m in Sources */,
+				9F125F604C814658A25D3A45 /* CDVAssetLibraryFilesystem.m in Sources */,
+				9D3A526D30E940B590C0C6D4 /* ImageResize.m in Sources */,
+				733336E67B624F778D2DB1FF /* NSData+Base64.m in Sources */,
+				44BB037050AC40D7AC97E30C /* UIImage+Scale.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

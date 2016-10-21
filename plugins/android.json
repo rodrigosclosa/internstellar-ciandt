@@ -42,10 +42,16 @@
         },
         "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
+        },
+        "cordova-plugin-image-resizer": {
+            "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ciandt.enterprise.prototype.internstellar"
         }
     }

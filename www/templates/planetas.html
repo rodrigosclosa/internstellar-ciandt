@@ -1,0 +1,20 @@
+<ion-view view-title="Planetas">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="planeta in planetas" type="item-text-wrap" href="#/tab/planetas/{{planeta.id}}">
+        <img ng-src="{{planeta.face}}">
+        <h2>{{planeta.name}}</h2>
+        <p>{{planeta.lastText}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <!-- 
+            Este é somente um exemplo de botão com chamada de uma função. 
+            Para exibir na tela, arraste o item da lista para a esquerda. 
+        -->
+        <ion-option-button class="button-assertive" ng-click="remove(planeta)">
+          Excluir
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -26,6 +26,7 @@
 
   <!-- ionic/angularjs js -->
   <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="js/ng-cordova.min.js"></script>
 
   <!-- cordova script (this will be a 404 during development) -->
   <script src="cordova.js"></script>
@@ -36,10 +37,10 @@
 
   <!-- Controllers -->
   <script src="js/controllers/controllers.js"></script>
-  <script src="js/controllers/dash.js"></script>
-  <script src="js/controllers/account.js"></script>
-  <script src="js/controllers/chats.js"></script>
-  <script src="js/controllers/chatsDetail.js"></script>
+  <script src="js/controllers/grupo.js"></script>
+  <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/planetas.js"></script>
+  <script src="js/controllers/planetasPerguntas.js"></script>
 
   <!-- Rotas -->
   <script src="js/routes/routes.js"></script>
@@ -47,32 +48,13 @@
   <!-- Serviços -->
   <script src="js/services/services.js"></script>
   <script src="js/services/retornoServicos.js"></script>
-  <script src="js/services/chats.js"></script>
-  <script src="js/services/exemplo.js"></script>
+  <script src="js/services/planetasMock.js"></script>
+  <script src="js/services/equipesMock.js"></script>
+  <script src="js/services/servicoExemplo.js"></script>
 
   <!-- Diretivas -->
   <script src="js/directives/directives.js"></script>
   <script src="js/directives/formatDate.js"></script>
-
-  <!-- Firebase -->
-  <!--<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>-->
-  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-
-  <!-- AngularFire -->
-  <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-
-  <!-- VERIFICAR SE PRECISA OU NÃO DO CÓDIGO ABAIXO -->
-  <!--<script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDhd4cgsJ92psNvv4TfSgChRpkym74hsPg",
-      authDomain: "internstellar-ciandt.firebaseapp.com",
-      databaseURL: "https://internstellar-ciandt.firebaseio.com",
-      storageBucket: "internstellar-ciandt.appspot.com",
-      messagingSenderId: "824247522381"
-    };
-    firebase.initializeApp(config);
-  </script>-->
 </head>
 
 <body ng-app="app">
