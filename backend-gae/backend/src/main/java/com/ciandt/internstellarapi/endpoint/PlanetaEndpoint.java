@@ -54,16 +54,16 @@ public class PlanetaEndpoint {
     }
 
 
-    @ApiMethod(name = "updatePlaneta", path = "update", httpMethod = ApiMethod.HttpMethod.POST)
-    public Planeta updatePlaneta(Planeta planeta, @Named("tokenAdm") String token)
-            throws UnauthorizedException, BadRequestException, NotFoundException {
-        tokenService.validarTokenAdministrador(token);
-        return planetaService.update(planeta);
-    }
-
-    @ApiMethod(name = "insertPlaneta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Planeta insertPlaneta(@Named("tokenAdm") String token, Planeta item) throws BadRequestException, UnauthorizedException {
-        tokenService.validarTokenAdministrador(token);
-        return planetaService.insert(item);
-    }
+//    @ApiMethod(name = "updatePlaneta", path = "update", httpMethod = ApiMethod.HttpMethod.POST)
+//    public Planeta updatePlaneta(Planeta planeta, @Named("tokenAdm") String token)
+//            throws UnauthorizedException, BadRequestException, NotFoundException {
+//        tokenService.validarTokenAdministrador(token);
+//        return planetaService.update(planeta);
+//    }
+//
+//    @ApiMethod(name = "insertPlaneta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
+//    public Planeta insertPlaneta(@Named("tokenAdm") String token, Planeta item) throws BadRequestException, UnauthorizedException {
+//        tokenService.validarTokenAdministrador(token);
+//        return planetaService.insert(item);
+//    }
 }

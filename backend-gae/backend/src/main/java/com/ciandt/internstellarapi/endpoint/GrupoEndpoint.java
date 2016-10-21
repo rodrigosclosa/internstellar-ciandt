@@ -52,10 +52,18 @@ public class GrupoEndpoint {
         return grupoService.getById(id);
     }
 
+    @ApiMethod(name = "getGrupoByEquipe", path = "getByEquipe/{idEquipe}", httpMethod = ApiMethod.HttpMethod.GET)
+    public Grupo getGrupoByEquipe(@Named("idEquipe") Long idEquipe) throws NotFoundException {
+        return grupoService.getByEquipes(idEquipe);
+    }
+
     @ApiMethod(name = "insertGrupo", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
     public Grupo insertGrupo(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
         return grupoService.insert(item);
     }
 
-
+    @ApiMethod(name = "updateGrupo", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
+    public Grupo updateGrupo(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
+        return grupoService.insert(item);
+    }
 }
