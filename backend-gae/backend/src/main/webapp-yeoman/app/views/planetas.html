@@ -1,0 +1,22 @@
+<div class="col-md-12 margin-bottom-20">
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp col-md-12">
+    <thead>
+    <tr>
+      <th class="text-center" colspan="2">Planeta</th>
+      <th class="text-center">Conquistadores</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="planet in planets">
+      <td><img src="{{planet.imagem}}" class="img-responsive centered" /></td>
+      <td class="text-center">{{planet.nome}}</td>
+      <td>
+        <div ng-repeat="conq in planet.gruposConquistadores"
+             class="{{conq.equipe.cor}} text-center">
+              {{conq.nome}} ({{conq.equipe.nome + ' / ' + conq.equipe.cor}})
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

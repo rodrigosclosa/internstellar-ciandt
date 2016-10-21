@@ -43,30 +43,30 @@ public class PerguntaEndpoint {
     }
 
 
-    @ApiMethod(name = "getPerguntas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Pergunta> getPerguntas(@Nullable @Named("idPLaneta") Long idPlaneta,
-                                       @Named("token") String token) throws NotFoundException, UnauthorizedException {
-        tokenService.validarTokenAdministrador(token);
-        if (idPlaneta == null) {
-            return perguntaService.list();
-        } else {
-            return perguntaService.findByPlaneta(idPlaneta);
-        }
-    }
+//    @ApiMethod(name = "getPerguntas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
+//    public List<Pergunta> getPerguntas(@Nullable @Named("idPlaneta") Long idPlaneta,
+//                                       @Named("token") String token) throws NotFoundException, UnauthorizedException {
+//        tokenService.validarTokenAdministrador(token);
+//        if (idPlaneta == null) {
+//            return perguntaService.list();
+//        } else {
+//            return perguntaService.findByPlaneta(idPlaneta);
+//        }
+//    }
 
-    @ApiMethod(name = "updatePergunta", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
-    public Pergunta updatePergunta(@Named("tokenAdm") String token, Pergunta pergunta)
-            throws UnauthorizedException, BadRequestException, NotFoundException {
-        tokenService.validarTokenAdministrador(token);
-        return perguntaService.update(pergunta);
-    }
-
-    @ApiMethod(name = "insertPergunta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-    public Pergunta insertPergunta(@Named("tokenAdm") String token, Pergunta item)
-            throws BadRequestException, UnauthorizedException {
-        tokenService.validarTokenAdministrador(token);
-        return perguntaService.insert(item);
-    }
+//    @ApiMethod(name = "updatePergunta", path = "update", httpMethod = ApiMethod.HttpMethod.PUT)
+//    public Pergunta updatePergunta(@Named("tokenAdm") String token, Pergunta pergunta)
+//            throws UnauthorizedException, BadRequestException, NotFoundException {
+//        tokenService.validarTokenAdministrador(token);
+//        return perguntaService.update(pergunta);
+//    }
+//
+//    @ApiMethod(name = "insertPergunta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
+//    public Pergunta insertPergunta(@Named("tokenAdm") String token, Pergunta item)
+//            throws BadRequestException, UnauthorizedException {
+//        tokenService.validarTokenAdministrador(token);
+//        return perguntaService.insert(item);
+//    }
 
     @ApiMethod(name = "getProximaPergunta", path = "getNext", httpMethod = ApiMethod.HttpMethod.GET)
     public Pergunta nextPergunta(
@@ -88,10 +88,10 @@ public class PerguntaEndpoint {
         return perguntaService.jumpPergunta(idGrupo, idPlaneta);
     }
 
-    @ApiMethod(name = "deletePergunta", path = "delete/{idPergunta}", httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("tokenAdm") String tokenAdm, @Named("idPergunta") Long id)
-            throws UnauthorizedException, NotFoundException {
-        tokenService.validarTokenAdministrador(tokenAdm);
-        perguntaService.remove(id);
-    }
+//    @ApiMethod(name = "deletePergunta", path = "delete/{idPergunta}", httpMethod = ApiMethod.HttpMethod.DELETE)
+//    public void remove(@Named("tokenAdm") String tokenAdm, @Named("idPergunta") Long id)
+//            throws UnauthorizedException, NotFoundException {
+//        tokenService.validarTokenAdministrador(tokenAdm);
+//        perguntaService.remove(id);
+//    }
 }

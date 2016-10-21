@@ -6,8 +6,6 @@ angular.module('internstellarDashApp')
 
     $scope.items = [];
 
-    $scope.updateInterval = 1000 * 60 * 5;
-
     $scope.updateBoard = function (cidade) {
       InternstellarService.getLastUpdates(cidade).then(function (data) {
         console.log(data);

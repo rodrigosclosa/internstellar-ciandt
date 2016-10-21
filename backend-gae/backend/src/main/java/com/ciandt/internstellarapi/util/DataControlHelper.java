@@ -5,6 +5,9 @@ import com.google.api.server.spi.types.SimpleDate;
 import com.google.appengine.repackaged.com.google.api.client.util.Data;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +17,8 @@ import java.util.List;
 
 public class DataControlHelper {
 
+    private static final int FIRST_ITEM = 0;
+
     public static <T extends DataControl> void PreencherDataComHoraAtual(T dataControl) {
         Date dataAtual = new Date();
         dataControl.setData(dataAtual.getTime());
@@ -21,11 +26,25 @@ public class DataControlHelper {
         dataControl.setDataFormatada(simpleDateFormat.format(dataAtual));
     }
 
-    public static <T extends DataControl> long somarDatas(List<T> dataControllers){
+    public static <T extends DataControl> long somarDatas(List<T> dataControllers) {
         Long tempoTotal = 0L;
-        for(T dataControl : dataControllers){
+        for (T dataControl : dataControllers) {
             tempoTotal += dataControl.getData();
         }
         return tempoTotal;
+    }
+
+    public static <T extends DataControl> DataControl getGreaterDate(List<T> dataControllers) {
+        List<T> dataControlsOrdered = new ArrayList<>(dataControllers);
+        Collections.sort(dataControlsOrdered, new DataControllerComparator<>());
+        return dataControlsOrdered.get(FIRST_ITEM);
+    }
+
+    private static class DataControllerComparator<T extends DataControl> implements Comparator<T> {
+
+        @Override
+        public int compare(T dataControl, T t1) {
+            return t1.getData().compareTo(dataControl.getData());
+        }
     }
 }

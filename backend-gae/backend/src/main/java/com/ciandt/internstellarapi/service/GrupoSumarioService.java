@@ -1,6 +1,7 @@
 package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.entity.Avaliacao;
+import com.ciandt.internstellarapi.entity.DataControl;
 import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.GrupoSumarioAvaliacao;
@@ -18,6 +19,8 @@ import java.util.List;
  */
 
 public class GrupoSumarioService {
+
+    private static final int MULTIPLICADOR_AVALIACAO = 7;
 
     private GrupoService grupoService;
 
@@ -47,17 +50,25 @@ public class GrupoSumarioService {
         for (Grupo g : grupos) {
             GrupoSumarioAvaliacao sumario = new GrupoSumarioAvaliacao();
             List<Resposta> respostasGrupo = respostaService.findByGrupo(g.getId());
+            List<DataControl> dataControls = new ArrayList<>();
             sumario.setGrupo(g);
-
             if (respostasGrupo != null && !respostasGrupo.isEmpty()) {
                 List<Resposta> respostas = respostaService.respostasCorretas(respostasGrupo);
                 sumario.setCountRespCorr(respostas.size());
                 sumario.setTempoTotalRespostas(DataControlHelper.somarDatas(respostas));
+                dataControls.addAll(respostas);
             }
             List<Avaliacao> avaliacoes = avaliacaoService.findByGrupo(g.getId());
             if (avaliacoes != null && !avaliacoes.isEmpty()) {
                 sumario.setDesafConc(avaliacoes.size());
                 sumario.setTempoTotalDesafios(DataControlHelper.somarDatas(avaliacoes));
+                dataControls.addAll(avaliacoes);
+            }
+            sumario.setPontos(calcPontos(sumario.getDesafConc(), sumario.getCountRespCorr()));
+            if (dataControls != null && !dataControls.isEmpty()) {
+                DataControl ultimaPontuacao = DataControlHelper.getGreaterDate(dataControls);
+                sumario.setUltimaPontuacao(ultimaPontuacao.getData());
+                sumario.setUltimaPontuacaoFormatada(ultimaPontuacao.getDataFormatada());
             }
             gruposSumario.add(sumario);
         }
@@ -66,30 +77,27 @@ public class GrupoSumarioService {
         return gruposSumario;
     }
 
+    private int calcPontos(Integer desafiosConcluidos, Integer respostasCorretas) {
+        return desafiosConcluidos * MULTIPLICADOR_AVALIACAO + respostasCorretas;
+    }
+
     private class SumarioComparator implements Comparator<GrupoSumarioAvaliacao> {
 
         @Override
         public int compare(GrupoSumarioAvaliacao s1,
                            GrupoSumarioAvaliacao s2) {
             int resultCompare = 0;
-            int desafioCompare = s2.getDesafConc().compareTo(s1.getDesafConc());
-            int desafioTimeCompare = s1.getDesafConc().compareTo(s2.getDesafConc());
-            int respostaCountCompare = s2.getCountRespCorr().compareTo(s1.getCountRespCorr());
-            int respostaTimeCompare = s1.getTempoTotalRespostas().compareTo(s2.getTempoTotalRespostas());
+            int pontosCompare = s2.getPontos().compareTo(s1.getPontos());
+            int ultimaPontuacaoCompare = s1.getUltimaPontuacao().compareTo(s2.getUltimaPontuacao());
 
-            if (desafioCompare != 0) {
-                resultCompare = desafioCompare;
-            } else if (respostaCountCompare != 0) {
-                resultCompare = respostaCountCompare;
-            } else if (desafioTimeCompare != 0) {
-                resultCompare = desafioTimeCompare;
-            } else if (respostaTimeCompare != 0) {
-                resultCompare = respostaTimeCompare;
+            if (pontosCompare != 0) {
+                resultCompare = pontosCompare;
+            } else if (ultimaPontuacaoCompare != 0) {
+                resultCompare = ultimaPontuacaoCompare;
             }
 
             return resultCompare;
         }
     }
-
 
 }

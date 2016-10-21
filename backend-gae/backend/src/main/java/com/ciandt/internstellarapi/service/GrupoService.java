@@ -104,6 +104,21 @@ public class GrupoService {
         return item;
     }
 
+    public Grupo getByEquipes(Long idEquipe) {
+        Grupo retorno = null;
+        Query.Filter filterByEquipes = new Query.FilterPredicate("idEquipe", Query.FilterOperator.EQUAL, idEquipe);
+
+        List<Grupo> grupos = grupoDao.listByFilter(filterByEquipes);
+        fetchIntegrantes(grupos);
+        fetchEquipe(grupos);
+
+        if(grupos.size() > 0) {
+            retorno = grupos.get(0);
+        }
+
+        return retorno;
+    }
+
     public Grupo insert(Grupo item) throws BadRequestException, UnauthorizedException, NotFoundException {
 
         //Validação Grupo

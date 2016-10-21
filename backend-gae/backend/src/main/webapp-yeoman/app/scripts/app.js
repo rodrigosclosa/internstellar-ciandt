@@ -36,6 +36,11 @@ angular
         controller: 'AvalCtrl',
         controllerAs: 'aval'
       })
+      .when('/planetas/:base', {
+        templateUrl: 'views/planetas.html',
+        controller: 'PlanetasCtrl',
+        controllerAs: 'planetas'
+      })
       .otherwise({
         redirectTo: '/'
       });

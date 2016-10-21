@@ -50,8 +50,8 @@ public class EquipeEndpoint {
         return equipeService.getById(id);
     }
 
-    @ApiMethod(name = "seedData", path = "seed", httpMethod = ApiMethod.HttpMethod.POST)
-    public void seedData() throws NotFoundException, ConflictException {
-        equipeService.seedData();
-    }
+//    @ApiMethod(name = "seedData", path = "seed", httpMethod = ApiMethod.HttpMethod.POST)
+//    public void seedData() throws NotFoundException, ConflictException {
+//        equipeService.seedData();
+//    }
 }
