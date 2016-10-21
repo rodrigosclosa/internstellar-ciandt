@@ -89,6 +89,7 @@ public class Messages {
         public static final String RESPOSTA_INVALIDA_PARA_A_PERGUNTA = "Resposta informada não válida.";
         public static final String RESPOSTA_JA_ENVIADA = "Resposta já enviada.";
         public static final String GRUPO_INFORMADO_INVALIDO = "Grupo informado inválido";
+        public static final String PROXIMA_PERGUNTA_NAO_INFORMADA = "Esta pergunta para o planeta ainda não foi selecionada pelo seu grupo";
 
     }
 

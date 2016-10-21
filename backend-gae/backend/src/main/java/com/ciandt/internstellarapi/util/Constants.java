@@ -23,7 +23,7 @@ public class Constants {
     }
 
 //    public String getOneSignalTag(String carteirinha) {
-//        return "{\"key\": \"username\", \"relation\": \"=\", \"value\": \"" + carteirinha + "\"}";
+//        return "{\"itemskey\": \"username\", \"relation\": \"=\", \"value\": \"" + carteirinha + "\"}";
 //    }
 
     public String getOneSignalAppId() {

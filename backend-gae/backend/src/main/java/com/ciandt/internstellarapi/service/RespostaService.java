@@ -76,7 +76,7 @@ public class RespostaService {
                 resposta.getIdGrupo(),
                 resposta.getIdPergunta());
         if (perguntaGrupo == null) {
-            throw new InternalServerErrorException(Messages.GenericMessages.ERRO_NAO_ESPERADO);
+            throw new InternalServerErrorException(Messages.RespostaMessages.PROXIMA_PERGUNTA_NAO_INFORMADA);
         }
         perguntaGrupo.setRespondida(Boolean.TRUE);
         perguntaGrupoService.salvar(perguntaGrupo);
