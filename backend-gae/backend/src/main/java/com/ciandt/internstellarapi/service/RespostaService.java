@@ -2,7 +2,6 @@ package com.ciandt.internstellarapi.service;
 
 import com.ciandt.internstellarapi.dao.GrupoDao;
 import com.ciandt.internstellarapi.dao.PerguntaDao;
-import com.ciandt.internstellarapi.dao.PerguntaGrupoDao;
 import com.ciandt.internstellarapi.dao.RespostaDao;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Pergunta;
@@ -106,7 +105,7 @@ public class RespostaService {
     private String getOpcaoCorreta(Pergunta pergunta) {
         String idOpcao = null;
         for (PerguntaOpcao opcao : pergunta.getOpcoes()) {
-            if (opcao.getCorreta()) {
+            if (Boolean.TRUE.equals(opcao.getCorreta())) {
                 idOpcao = opcao.getIdOpcao();
                 break;
             }
