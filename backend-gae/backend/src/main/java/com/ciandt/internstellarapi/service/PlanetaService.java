@@ -5,7 +5,6 @@ import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.helper.Messages;
 import com.google.api.server.spi.response.BadRequestException;
-import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 
 import java.util.ArrayList;
@@ -29,24 +28,29 @@ public class PlanetaService {
         List<Planeta> retorno = planetaDao.listAll();
 
         for (Planeta p : retorno) {
-            if(p.getIdGrupoDono() != null) {
-                try {
-                    Grupo gp = grupoService.getById(p.getIdGrupoDono());
+            fetchGruposConquistadores(p);
+        }
+        return retorno;
+    }
 
-                    if(gp != null) {
-                        p.setGrupoDono(gp);
+    private void fetchGruposConquistadores(Planeta p) {
+        if (p.getGruposConquistadoresIds() != null && !p.getGruposConquistadoresIds().isEmpty()) {
+            p.setGruposConquistadores(new ArrayList<Grupo>());
+            for (Long idGrupoDono : p.getGruposConquistadoresIds()) {
+                try {
+                    Grupo grupoDono = grupoService.getById(idGrupoDono);
+                    if (grupoDono != null) {
+                        p.getGruposConquistadores().add(grupoDono);
                     }
                 } catch (NotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
-
-        return retorno;
     }
 
     public List<Planeta> list(String nome) throws NotFoundException {
-        List<Planeta> list = new ArrayList<>();
+        List<Planeta> list;
 
         list = planetaDao.listByProperty("nome", nome);
 
@@ -55,17 +59,7 @@ public class PlanetaService {
         }
 
         for (Planeta p : list) {
-            if(p.getIdGrupoDono() != null) {
-                try {
-                    Grupo gp = grupoService.getById(p.getIdGrupoDono());
-
-                    if(gp != null) {
-                        p.setGrupoDono(gp);
-                    }
-                } catch (NotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+            fetchGruposConquistadores(p);
         }
 
         return list;
@@ -80,38 +74,8 @@ public class PlanetaService {
             throw new NotFoundException(Messages.PlanetaMessages.PLANETA_NAO_ENCONTRADO);
         }
 
-        if(item.getIdGrupoDono() != null) {
-            try {
-                Grupo gp = grupoService.getById(item.getIdGrupoDono());
-
-                if(gp != null) {
-                    item.setGrupoDono(gp);
-                }
-            } catch (NotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        fetchGruposConquistadores(item);
         return item;
-    }
-
-    public Planeta setGrupoDono(Long idPlaneta, Long idGrupo) throws NotFoundException {
-        Planeta pl = planetaDao.getByKey(idPlaneta);
-
-        if(pl == null) {
-            throw new NotFoundException(Messages.PlanetaMessages.PLANETA_NAO_ENCONTRADO);
-        }
-
-        Grupo gp = grupoService.getById(idGrupo);
-
-        if(gp == null) {
-            throw new NotFoundException(Messages.GrupoMessages.GRUPO_NAO_ENCONTRADO);
-        }
-
-        pl.setIdGrupoDono(idGrupo);
-
-        planetaDao.update(pl);
-
-        return pl;
     }
 
     public Planeta insert(Planeta item) throws BadRequestException {

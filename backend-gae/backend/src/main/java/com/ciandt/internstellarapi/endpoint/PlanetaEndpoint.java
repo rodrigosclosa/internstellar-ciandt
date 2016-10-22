@@ -1,7 +1,5 @@
 package com.ciandt.internstellarapi.endpoint;
 
-import com.ciandt.internstellarapi.entity.Grupo;
-import com.ciandt.internstellarapi.entity.Pergunta;
 import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.service.PlanetaService;
 import com.ciandt.internstellarapi.service.TokenService;
@@ -9,10 +7,10 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Nullable;
-import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.api.server.spi.response.UnauthorizedException;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Named;
@@ -42,28 +40,14 @@ public class PlanetaEndpoint {
     }
 
     @ApiMethod(name = "getPlanetas", path = "get", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Planeta> getPlanetas(@Nullable @Named("nome") String nome,
+    public List<Planeta> getPlanetas(@Nullable @Named("id") Long id,
                                      @Named("token") String token)
             throws NotFoundException, UnauthorizedException {
         tokenService.getByToken(token);
-        if (nome == null) {
+        if (id == null) {
             return planetaService.list();
         } else {
-            return planetaService.list(nome);
+            return Collections.singletonList(planetaService.getById(id));
         }
     }
-
-
-//    @ApiMethod(name = "updatePlaneta", path = "update", httpMethod = ApiMethod.HttpMethod.POST)
-//    public Planeta updatePlaneta(Planeta planeta, @Named("tokenAdm") String token)
-//            throws UnauthorizedException, BadRequestException, NotFoundException {
-//        tokenService.validarTokenAdministrador(token);
-//        return planetaService.update(planeta);
-//    }
-//
-//    @ApiMethod(name = "insertPlaneta", path = "new", httpMethod = ApiMethod.HttpMethod.POST)
-//    public Planeta insertPlaneta(@Named("tokenAdm") String token, Planeta item) throws BadRequestException, UnauthorizedException {
-//        tokenService.validarTokenAdministrador(token);
-//        return planetaService.insert(item);
-//    }
 }
