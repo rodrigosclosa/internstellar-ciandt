@@ -191,40 +191,48 @@ public class PerguntaService {
     public Pergunta jumpPergunta(Long idGrupo, Long idPlaneta) throws NotFoundException, BadRequestException {
         perguntaValidator.validarAcaoPergunta(idGrupo, idPlaneta);
         List<PerguntaGrupo> perguntasGrupo = perguntaGrupoService.findByPlanetaGrupo(idPlaneta, idGrupo);
-        List<PerguntaGrupo> perguntaGrupoNaoRespondida = new ArrayList<>();
+        List<Pergunta> perguntasNaoRespondidas = findByPlaneta(idPlaneta);
+        List<Long> idPerguntasRespondidas = new ArrayList<>();
         for (PerguntaGrupo pg : perguntasGrupo) {
-            if (Boolean.FALSE.equals(pg.getRespondida())) {
-                perguntaGrupoNaoRespondida.add(pg);
+            if (Boolean.TRUE.equals(pg.getRespondida())) {
+                idPerguntasRespondidas.add(pg.getIdPergunta());
             }
         }
+        Iterator<Pergunta> iteratorPergNaoREsp = perguntasNaoRespondidas.iterator();
+        List<Pergunta> perguntasToRemove = new ArrayList<>();
+        while (iteratorPergNaoREsp.hasNext()) {
+            Pergunta p = iteratorPergNaoREsp.next();
+            if (idPerguntasRespondidas.contains(p.getId())) {
+                perguntasToRemove.add(p);
+            }
+        }
+        perguntasNaoRespondidas.removeAll(perguntasToRemove);
         if (perguntasGrupo == null || perguntasGrupo.isEmpty()) {
             throw new BadRequestException(Messages.PerguntaMessages.PRIMEIRA_PERGUNTA_NAO_REQUISITADA);
         }
         Pergunta perguntaResult;
-        if (!perguntaGrupoNaoRespondida.isEmpty()) {
-            PerguntaGrupo perguntaGrupo = perguntasGrupo.get(FIRST_ITEM);
-            perguntaGrupo.setQuantidadeTentativas(perguntaGrupo.getQuantidadeTentativas()
-                    + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
-            perguntaGrupoService.update(perguntaGrupo);
 
-            Pergunta perguntaAtual = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+        PerguntaGrupo perguntaGrupo = perguntasGrupo.get(FIRST_ITEM);
+        perguntaGrupo.setQuantidadeTentativas(perguntaGrupo.getQuantidadeTentativas()
+                + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
+        perguntaGrupoService.update(perguntaGrupo);
 
-            List<Pergunta> perguntasPlaneta = findByPlaneta(idPlaneta);
-            perguntaResult = selectNextPergunta(perguntaAtual, perguntasPlaneta);
-            PerguntaGrupo perguntaGrupoJaExistente =
-                    perguntaGrupoService.findByPlanetaGrupoPergunta(
-                            idPlaneta, idGrupo, perguntaResult.getId());
-            if (perguntaGrupoJaExistente == null) {
-                criarPerguntaGrupo(idGrupo, idPlaneta, perguntaResult.getId());
-            } else {
-                perguntaGrupoJaExistente.setQuantidadeTentativas(
-                        perguntaGrupoJaExistente.getQuantidadeTentativas()
-                                + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
-            }
-            configurarPerguntasToPublic(Collections.singletonList(perguntaResult));
+        Pergunta perguntaAtual = perguntaDao.getByKey(perguntaGrupo.getIdPergunta());
+
+
+        perguntaResult = selectNextPergunta(perguntaAtual, perguntasNaoRespondidas);
+        PerguntaGrupo perguntaGrupoJaExistente =
+                perguntaGrupoService.findByPlanetaGrupoPergunta(
+                        idPlaneta, idGrupo, perguntaResult.getId());
+        if (perguntaGrupoJaExistente == null) {
+            criarPerguntaGrupo(idGrupo, idPlaneta, perguntaResult.getId());
         } else {
-            perguntaResult = nextPergunta(idGrupo, idPlaneta);
+            perguntaGrupoJaExistente.setQuantidadeTentativas(
+                    perguntaGrupoJaExistente.getQuantidadeTentativas()
+                            + INCREMENTO_PADRAO_QUANTIDADE_TENTATIVAS);
         }
+        configurarPerguntasToPublic(Collections.singletonList(perguntaResult));
+
         return perguntaResult;
     }
 
