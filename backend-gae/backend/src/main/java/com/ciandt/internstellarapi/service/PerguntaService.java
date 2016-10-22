@@ -193,7 +193,7 @@ public class PerguntaService {
         List<PerguntaGrupo> perguntasGrupo = perguntaGrupoService.findByPlanetaGrupo(idPlaneta, idGrupo);
         List<Pergunta> perguntasNaoRespondidas = findByPlaneta(idPlaneta);
         List<Long> idPerguntasRespondidas = new ArrayList<>();
-        for (PerguntaGrupo pg : perguntasGrupo) {
+            for (PerguntaGrupo pg : perguntasGrupo) {
             if (Boolean.TRUE.equals(pg.getRespondida())) {
                 idPerguntasRespondidas.add(pg.getIdPergunta());
             }

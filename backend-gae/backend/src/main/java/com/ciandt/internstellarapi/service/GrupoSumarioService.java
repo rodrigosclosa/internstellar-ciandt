@@ -1,10 +1,12 @@
 package com.ciandt.internstellarapi.service;
 
+import com.ciandt.internstellarapi.dao.PlanetaDao;
 import com.ciandt.internstellarapi.entity.Avaliacao;
 import com.ciandt.internstellarapi.entity.DataControl;
 import com.ciandt.internstellarapi.entity.Equipe;
 import com.ciandt.internstellarapi.entity.Grupo;
 import com.ciandt.internstellarapi.entity.GrupoSumarioAvaliacao;
+import com.ciandt.internstellarapi.entity.Planeta;
 import com.ciandt.internstellarapi.entity.Resposta;
 import com.ciandt.internstellarapi.helper.EntityHelper;
 import com.ciandt.internstellarapi.util.DataControlHelper;
@@ -20,6 +22,8 @@ import java.util.List;
 
 public class GrupoSumarioService {
 
+    private static final int QUANTIDADE_CONQUISTADOR = 5;
+
     private static final int MULTIPLICADOR_AVALIACAO = 7;
 
     private GrupoService grupoService;
@@ -30,11 +34,14 @@ public class GrupoSumarioService {
 
     private AvaliacaoService avaliacaoService;
 
+    private PlanetaDao planetaDao;
+
     public GrupoSumarioService() {
         grupoService = new GrupoService();
         equipeService = new EquipeService();
         respostaService = new RespostaService();
         avaliacaoService = new AvaliacaoService();
+        planetaDao = new PlanetaDao();
     }
 
     public List<GrupoSumarioAvaliacao> getSumarioGruposPorBase(String base) {
@@ -74,6 +81,8 @@ public class GrupoSumarioService {
         }
 
         Collections.sort(gruposSumario, new SumarioComparator());
+
+        sumarizarPlanetas();
         return gruposSumario;
     }
 
@@ -97,6 +106,28 @@ public class GrupoSumarioService {
             }
 
             return resultCompare;
+        }
+    }
+
+    public void sumarizarPlanetas() {
+        List<Planeta> planetas = planetaDao.listAll();
+        initializePlanetasForSumarizar(planetas);
+        List<Grupo> grupos = grupoService.list();
+        for (Planeta planeta : planetas) {
+            for (Grupo grupo : grupos) {
+                List<Resposta> respostas =
+                        respostaService.findByGrupoPlaneta(grupo.getId(), planeta.getId());
+                if (respostaService.respostasCorretas(respostas).size() >= QUANTIDADE_CONQUISTADOR) {
+                    planeta.getGruposConquistadoresIds().add(grupo.getId());
+                }
+            }
+        }
+        planetaDao.saveMany(planetas);
+    }
+
+    private void initializePlanetasForSumarizar(List<Planeta> planetas) {
+        for (Planeta p : planetas) {
+            p.setGruposConquistadoresIds(new ArrayList<Long>());
         }
     }
 

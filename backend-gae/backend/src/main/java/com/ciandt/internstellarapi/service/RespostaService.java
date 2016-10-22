@@ -91,6 +91,20 @@ public class RespostaService {
         return result;
     }
 
+    public List<Resposta> findByGrupoPlaneta(Long idGrupo, Long idPLaneta) {
+        List<Resposta> result;
+        List<Resposta> resultsByPlaneta = new ArrayList<>();
+        result = respostaDao.listByProperty("idGrupo", idGrupo);
+        fetchPergunta(result);
+        for (Resposta resposta : result) {
+            if (resposta.getPergunta().getPlanetaId().equals(idPLaneta)) {
+                resultsByPlaneta.add(resposta);
+            }
+        }
+
+        return resultsByPlaneta;
+    }
+
     public List<Resposta> respostasCorretas(List<Resposta> respostas) {
         List<Resposta> respostasCorretas = new ArrayList<>();
         for (Resposta resposta : respostas) {
@@ -123,3 +137,4 @@ public class RespostaService {
     }
 
 }
+

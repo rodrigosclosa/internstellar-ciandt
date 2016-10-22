@@ -68,4 +68,5 @@ public class Planeta extends BaseEntity {
     public void setGruposConquistadores(List<Grupo> gruposConquistadores) {
         this.gruposConquistadores = gruposConquistadores;
     }
+
 }
