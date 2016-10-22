@@ -1,8 +1,6 @@
 package com.ciandt.internstellarapi.util;
 
 import com.ciandt.internstellarapi.entity.DataControl;
-import com.google.api.server.spi.types.SimpleDate;
-import com.google.appengine.repackaged.com.google.api.client.util.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class DataControlHelper {
     public static <T extends DataControl> void PreencherDataComHoraAtual(T dataControl) {
         Date dataAtual = new Date();
         dataControl.setData(dataAtual.getTime());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         dataControl.setDataFormatada(simpleDateFormat.format(dataAtual));
     }
 
