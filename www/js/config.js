@@ -5,7 +5,7 @@ angular.module('app.config', [])
 
         return {
             urlServicos: function () {
-                return "https://internstellar-cit.appspot.com/_ah/api/";
+                return "https://internstellar-ciandt.appspot.com/_ah/api/";
             }
         };
     });

@@ -53,6 +53,7 @@ angular.module('app.controllers')
             if (dados.success) {
                 //Preencho meu objeto com os dados que foram retornados a API
                 $scope.dadosExemplo = dados.items;
+                console.log($scope.dadosExemplo);
             } else {
                 //Exibo uma mensagem para informar que ocorreu um erro
                 $ionicPopup.alert({
